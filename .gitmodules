@@ -1,0 +1,6 @@
+[submodule "GoRogue"]
+	path = GoRogue
+	url = https://github.com/Chris3606/GoRogue/tree/v3.0.0-beta08
+[submodule "TheSadRogue.Integration"]
+	path = TheSadRogue.Integration
+	url = https://github.com/AtelierAmber/TheSadRogue.Integration/tree/update-v10
