@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ichigo": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Ichigo</RootNamespace>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <StartupObject>Ichigo.Program</StartupObject>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+    <PackageReference Include="SadConsole.Extended" Version="10.0.0" />
+    <PackageReference Include="SadConsole.GoRogueHelpers" Version="1.0.1" />
+    <PackageReference Include="SadConsole.Host.MonoGame" Version="10.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\GoRogue\GoRogue\GoRogue.csproj" />
+    <ProjectReference Include="..\TheSadRogue.Integration\TheSadRogue.Integration\TheSadRogue.Integration.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Engine\ECS\" />
+  </ItemGroup>
+
+</Project>
