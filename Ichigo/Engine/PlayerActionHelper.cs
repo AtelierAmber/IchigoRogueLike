@@ -39,7 +39,7 @@ namespace Ichigo.Engine
 
       // The player completed their turn by successfully taking an action; but if they somehow died in the process, we'll just return
       // because the main game screen's death handlers will have already dealt with the situation.
-      if (player.AllComponents.GetFirst<Combatant>().HP <= 0) return;
+      if (player.AllComponents.GetFirst<UnitStats>().HP <= 0) return;
 
       // Otherwise, have the enemies take their turns.
       (player.CurrentMap as GameMap)!.TakeEnemyTurns();

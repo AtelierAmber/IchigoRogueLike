@@ -47,7 +47,7 @@ namespace Ichigo.Engine.MapObjects.Components.Items
       // Lightning damage bypasses defense.
       Core.Instance.MessageLog.Add(
         new($"A lightning bolt zaps the {target.Parent!.Name} with a loud thunder, for {Damage} damage!"));
-      target.HP -= Damage;
+      target.Parent.AllComponents.GetFirst<UnitStats>().HP -= Damage;
 
       return true;
     }

@@ -20,7 +20,7 @@ namespace Ichigo.Engine.MapObjects.Components.AI
     public override void TakeTurn()
     {
       if (Parent?.CurrentMap == null) return;
-      if (Parent.AllComponents.GetFirst<Combatant>().HP <= 0) return;
+      if (Parent.AllComponents.GetFirst<UnitStats>().HP <= 0) return;
 
       // Path to the player if they're visible; otherwise, move toward the last known position of the player (if any)
       var moveToPosition = Parent.CurrentMap.PlayerFOV.CurrentFOV.Contains(Parent.Position)

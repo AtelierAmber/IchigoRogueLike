@@ -29,7 +29,7 @@ namespace Ichigo.Engine.Screens.Surfaces
 
       // Add HP bar to controls, and ensure HP bar updates when the player's health changes
       Controls.Add(HPBar);
-      Core.Instance.Player.AllComponents.GetFirst<Combatant>().HPChanged += OnPlayerHPChanged;
+      Core.Instance.Player.AllComponents.GetFirst<UnitStats>().HPChanged += OnPlayerHPChanged;
       UpdateHPBar();
 
       // Create a label to display information about the tile the player is looking at
@@ -50,9 +50,9 @@ namespace Ichigo.Engine.Screens.Surfaces
 
     private void UpdateHPBar()
     {
-      var combatant = Core.Instance.Player.AllComponents.GetFirst<Combatant>();
-      HPBar.DisplayText = $"HP: {combatant.HP} / {combatant.MaxHP}";
-      HPBar.Progress = (float)combatant.HP / combatant.MaxHP;
+      var stats = Core.Instance.Player.AllComponents.GetFirst<UnitStats>();
+      HPBar.DisplayText = $"HP: {stats.HP} / {stats.MaxHP}";
+      HPBar.Progress = (float)stats.HP / stats.MaxHP;
     }
   }
 }

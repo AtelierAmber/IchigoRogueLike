@@ -26,8 +26,8 @@ namespace Ichigo.Engine.MapObjects.Components.Items
     {
       var isPlayer = consumer == Core.Instance.Player;
 
-      var combatant = consumer.AllComponents.GetFirst<Combatant>();
-      var amountRecovered = combatant.Heal(Amount);
+      var stats = consumer.AllComponents.GetFirst<UnitStats>();
+      var amountRecovered = stats.Heal(Amount);
       if (amountRecovered > 0)
       {
         if (isPlayer)

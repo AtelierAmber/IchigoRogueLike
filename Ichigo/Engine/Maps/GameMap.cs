@@ -79,10 +79,10 @@ namespace Ichigo.Engine.Maps
     public void TakeEnemyTurns()
     {
       var enemies = Entities.GetLayer((int)Layer.Monsters).Items.ToArray();
-      var playerCombatant = Core.Instance.Player.GoRogueComponents.GetFirst<Combatant>();
+      var playerStats = Core.Instance.Player.GoRogueComponents.GetFirst<UnitStats>();
       foreach (var enemy in enemies)
       {
-        if (playerCombatant.HP <= 0) break;
+        if (playerStats.HP <= 0) break;
 
         var ai = enemy.GoRogueComponents.GetFirstOrDefault<AIBase>();
         ai?.TakeTurn();
@@ -93,10 +93,10 @@ namespace Ichigo.Engine.Maps
     {
       if (e.Item != Core.Instance.Player)
       {
-        var combatant = e.Item.GoRogueComponents.GetFirstOrDefault<Combatant>();
-        if (combatant == null) return;
+        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<UnitStats>();
+        if (stats == null) return;
 
-        combatant.Died += HostileDeath;
+        stats.Died += HostileDeath;
       }
     }
 
@@ -104,10 +104,10 @@ namespace Ichigo.Engine.Maps
     {
       if (e.Item != Core.Instance.Player)
       {
-        var combatant = e.Item.GoRogueComponents.GetFirstOrDefault<Combatant>();
-        if (combatant == null) return;
+        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<UnitStats>();
+        if (stats == null) return;
 
-        combatant.Died -= HostileDeath;
+        stats.Died -= HostileDeath;
       }
     }
 

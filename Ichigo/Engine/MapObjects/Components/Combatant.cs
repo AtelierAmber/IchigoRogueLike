@@ -2,7 +2,7 @@
 using SadRogue.Integration;
 using SadRogue.Integration.Components;
 using Ichigo.Engine.Themes;
-
+using SadConsole;
 
 /// <summary>
 /// Component for entities that allows them to have health and attack.
@@ -12,57 +12,26 @@ namespace Ichigo.Engine.MapObjects.Components
 {
   internal class Combatant : RogueLikeComponentBase<RogueLikeEntity>, IBumpable
   {
-    private int _hp;
 
-    public int HP
-    {
-      get => _hp;
-      set
-      {
-        if (_hp == value) return;
+    private UnitStats? stats = null;
 
-        _hp = Math.Clamp(value, 0, MaxHP);
-        HPChanged?.Invoke(this, EventArgs.Empty);
-
-        if (_hp == 0)
-          Died?.Invoke(this, EventArgs.Empty);
-      }
-    }
-
-    public event EventHandler? HPChanged;
-
-    public event EventHandler? Died;
-
-    public int MaxHP { get; }
-    public int Defense { get; }
-    public int Power { get; }
-
-    public Combatant(int hp, int defense, int power)
+    public Combatant()
         : base(false, false, false, false)
     {
-      HP = MaxHP = hp;
-      Defense = defense;
-      Power = power;
     }
 
-    public int Heal(int amount)
+    public void Damage(Combatant target)
     {
-      int healthBeforeHeal = HP;
+      if (stats == null || target.stats == null) return;
 
-      HP += amount;
-      return HP - healthBeforeHeal;
-    }
-
-    public void Attack(Combatant target)
-    {
-      int damage = Power - target.Defense;
+      float damage = stats.Strength - target.stats.BluntDefense;
       string attackDesc = $"{Parent!.Name} attacks {target.Parent!.Name}";
 
       var atkTextColor = Parent == Core.Instance.Player ? MessageColors.PlayerAtkAppearance : MessageColors.EnemyAtkAppearance;
       if (damage > 0)
       {
         Core.Instance.MessageLog.Add(new($"{attackDesc} for {damage} damage.", atkTextColor));
-        target.HP -= damage;
+        target.stats.HP -= damage;
       }
       else
         Core.Instance.MessageLog.Add(new($"{attackDesc} but does no damage.", atkTextColor));
@@ -73,8 +42,20 @@ namespace Ichigo.Engine.MapObjects.Components
       var combatant = source.AllComponents.GetFirstOrDefault<Combatant>();
       if (combatant == null) return false;
 
-      combatant.Attack(this);
+      combatant.Damage(this);
       return true;
+    }
+    public override void OnAdded(IScreenObject host)
+    {
+      base.OnAdded(host);
+
+      RogueLikeEntity RLParent = (RogueLikeEntity)host;
+      if (RLParent != null && RLParent.HasSadComponent(out stats))
+      {
+        return;
+      }
+
+      RLParent?.AllComponents.Remove(this);
     }
   }
 }

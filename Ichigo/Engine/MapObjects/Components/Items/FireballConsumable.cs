@@ -22,12 +22,12 @@ namespace Ichigo.Engine.MapObjects.Components.Items
       {
         foreach (var entity in Core.Instance.GameScreen.Map.GetEntitiesAt<RogueLikeEntity>(pos))
         {
-          var combatant = entity.AllComponents.GetFirstOrDefault<Combatant>();
-          if (combatant == null) continue;
+          var stats = entity.AllComponents.GetFirstOrDefault<UnitStats>();
+          if (stats == null) continue;
 
           Core.Instance.MessageLog.Add(
             new($"The {entity.Name} is engulfed in a fiery explosion, taking {Damage} damage!"));
-          combatant.HP -= Damage;
+          stats.HP -= Damage;
           hitSomething = true;
         }
       }

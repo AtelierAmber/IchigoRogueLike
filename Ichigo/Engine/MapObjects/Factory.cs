@@ -33,7 +33,7 @@ namespace Ichigo.Engine.MapObjects
         {
             "Wall",
             new TerrainAppearanceDefinition(
-                new ColoredGlyph(Color.Black, Color.White, 0),
+                new ColoredGlyph(Color.Gray, Color.White, 0),
                 new ColoredGlyph(Color.Gray, Color.Black, 0)
             )
         },
@@ -56,8 +56,10 @@ namespace Ichigo.Engine.MapObjects
       // Add component for updating map's player FOV as they move
       player.AllComponents.Add(new PlayerFOVController { FOVRadius = 8 });
 
+      player.AllComponents.Add(new UnitStats(30, 0));
+
       // Player combatant
-      player.AllComponents.Add(new Combatant(30, 2, 5));
+      player.AllComponents.Add(new Combatant());
 
       // Player inventory
       player.AllComponents.Add(new Inventory(26));
@@ -74,7 +76,8 @@ namespace Ichigo.Engine.MapObjects
 
       // Add AI component to bump action toward the player if the player is in view
       enemy.AllComponents.Add(new HostileAI());
-      enemy.AllComponents.Add(new Combatant(10, 0, 3));
+      enemy.AllComponents.Add(new UnitStats(10, 0));
+      enemy.AllComponents.Add(new Combatant());
 
       return enemy;
     }
@@ -88,13 +91,14 @@ namespace Ichigo.Engine.MapObjects
 
       // Add AI component to bump action toward the player if the player is in view
       enemy.AllComponents.Add(new HostileAI());
-      enemy.AllComponents.Add(new Combatant(16, 1, 4));
+      enemy.AllComponents.Add(new UnitStats(15, 0));
+      enemy.AllComponents.Add(new Combatant());
 
       return enemy;
     }
 
     public static RogueLikeEntity Corpse(RogueLikeEntity entity)
-        => new((ColoredGlyph)entity.AppearanceSingle?.Appearance, layer: (int)GameMap.Layer.Items)
+        => new((ColoredGlyph)entity.AppearanceSingle.Appearance, layer: (int)GameMap.Layer.Items)
         {
           Name = $"Remains - {entity.Name}",
           Position = entity.Position,
