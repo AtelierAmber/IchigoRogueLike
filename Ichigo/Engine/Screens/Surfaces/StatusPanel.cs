@@ -24,8 +24,6 @@ namespace Ichigo.Engine.Screens.Surfaces
       {
         DisplayTextColor = Color.White
       };
-      HPBar.SetThemeColors(Themes.StatusPanel.HPBarColors);
-      //((ProgressBarTheme)HPBar.ThemeState).Background.SetGlyph(' ');
 
       // Add HP bar to controls, and ensure HP bar updates when the player's health changes
       Controls.Add(HPBar);

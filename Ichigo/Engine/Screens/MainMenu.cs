@@ -73,7 +73,7 @@ namespace Ichigo.Engine.Screens
       Core.Instance.Player.AllComponents.GetFirst<PlayerFOVController>().CalculateFOV();
 
       // Create a MapScreen and set it as the active screen so that it processes input and renders itself.
-      Core.Instance.GameScreen = new MainGame(map);
+      Core.Instance.GameScreen = new IchigoScreen(map);
       Core.Instance.ChangeScreen(Core.Instance.GameScreen);
     }
 
@@ -84,7 +84,7 @@ namespace Ichigo.Engine.Screens
 
     private void ExitOnClick(object? sender, EventArgs e)
     {
-      Game.Instance.MonoGameInstance.Exit();
+            SadConsole.Game.Instance.MonoGameInstance.Exit();
     }
 
     private void SettingsOnClick(object? sender, EventArgs e)

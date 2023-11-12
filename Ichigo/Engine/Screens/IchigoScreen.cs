@@ -16,7 +16,7 @@ using Ichigo.Engine.Screens.Surfaces;
 
 namespace Ichigo.Engine.Screens
 {
-  public class MainGame : ScreenObject
+  public class IchigoScreen : ScreenObject
   {
     public readonly GameMap Map;
     public readonly MessageLogPanel MessagePanel;
@@ -45,7 +45,7 @@ namespace Ichigo.Engine.Screens
     private const int StatusBarWidth = 25;
     private const int BottomPanelHeight = 5;
 
-    public MainGame(GameMap map)
+    public IchigoScreen(GameMap map)
     {
       // Record the map we're rendering
       Map = map;

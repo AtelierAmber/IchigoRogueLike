@@ -10,7 +10,7 @@ namespace Ichigo.Engine.Screens.States
   {
     private readonly bool _allowTargetNonVisible;
 
-    public TargetAreaState(MainGame gameScreen, int radius, Radius radiusShape, bool allowTargetNonVisible,
+    public TargetAreaState(IchigoScreen gameScreen, int radius, Radius radiusShape, bool allowTargetNonVisible,
         Action<LookMarkerPosition>? positionChanged = null,
         Action<LookMarkerPosition>? positionSelected = null,
         Func<Point>? getLookMarkerSurfaceStartingLocation = null)

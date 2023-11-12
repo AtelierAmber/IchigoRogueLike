@@ -11,7 +11,7 @@ namespace Ichigo.Engine.MapObjects.Components.Items
   {
     /// <summary>
     /// Returns a state object, if the item needs to get a target or otherwise
-    /// change the state of the MainGame screen to gain information before its Consume
+    /// change the state of the IchigoScreen screen to gain information before its Consume
     /// function is called.
     /// </summary>
     /// <param name="consumer">The entity consuming the consumable.</param>

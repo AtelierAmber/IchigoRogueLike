@@ -10,9 +10,9 @@ namespace Ichigo.Engine.Screens.States
 {
   internal class StateBase : RogueLikeComponentBase<IScreenSurface>
   {
-    protected readonly MainGame GameScreen;
+    protected readonly IchigoScreen GameScreen;
 
-    public StateBase(MainGame gameScreen, bool isUpdate, bool isRender, bool isMouse, bool isKeyboard)
+    public StateBase(IchigoScreen gameScreen, bool isUpdate, bool isRender, bool isMouse, bool isKeyboard)
         : base(isUpdate, isRender, isMouse, isKeyboard)
     {
       GameScreen = gameScreen;

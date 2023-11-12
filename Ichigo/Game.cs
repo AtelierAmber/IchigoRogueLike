@@ -1,7 +1,7 @@
 ﻿using Ichigo.Engine;
 
 namespace Ichigo {
-  internal class Program
+  internal class Game
   {
 
     private const int StartingWidth = 80;

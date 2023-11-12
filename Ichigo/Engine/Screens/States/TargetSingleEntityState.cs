@@ -11,7 +11,7 @@ namespace Ichigo.Engine.Screens.States
     private readonly bool _allowTargetSelf;
     private readonly bool _allowTargetNonVisible;
 
-    public TargetSingleEntityState(MainGame gameScreen, bool allowTargetSelf, bool allowTargetNonVisible,
+    public TargetSingleEntityState(IchigoScreen gameScreen, bool allowTargetSelf, bool allowTargetNonVisible,
         Action<LookMarkerPosition>? positionChanged = null,
         Action<LookMarkerPosition>? positionSelected = null,
         Func<Point>? getLookMarkerSurfaceStartingLocation = null)

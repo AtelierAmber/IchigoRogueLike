@@ -13,7 +13,7 @@ namespace Ichigo.Engine.Screens.States
     {
         private readonly MainMapKeybindingsComponent _keybindings;
 
-        public MainMapState(MainGame gameScreen)
+        public MainMapState(IchigoScreen gameScreen)
             : base(gameScreen, false, false, false, false)
         {
             _keybindings = new MainMapKeybindingsComponent();

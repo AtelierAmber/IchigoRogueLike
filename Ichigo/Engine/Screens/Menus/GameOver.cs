@@ -51,7 +51,7 @@ namespace Ichigo.Engine.Screens.Menus
 
         private void ExitOnClick(object? sender, EventArgs e)
         {
-            Game.Instance.MonoGameInstance.Exit();
+            SadConsole.Game.Instance.MonoGameInstance.Exit();
         }
     }
 }

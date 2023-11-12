@@ -58,7 +58,7 @@ namespace Ichigo.Engine.Screens.States
 
         private readonly Color _lookMarkerColor = new(200, 0, 0, 170);
 
-        public SelectMapLocationState(MainGame gameScreen,
+        public SelectMapLocationState(IchigoScreen gameScreen,
             int radius = 0,
             Radius? radiusShape = null,
             Action<LookMarkerPosition>? positionChanged = null,
