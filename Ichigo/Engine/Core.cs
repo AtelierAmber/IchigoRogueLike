@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Globalization;
 using Ichigo.Engine.Screens;
 using SadConsole;
 using SadConsole.Configuration;
@@ -26,7 +27,8 @@ namespace Ichigo.Engine
 
     private static int GAME_WIDTH = 80, GAME_HEIGHT = 50;
 
-    public static void Start<TStartingScreen>(int width, int height, bool setStartAsGame = false, string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
+    public static void Start<TStartingScreen>(int width, int height, bool setStartAsGame = false, 
+      string defaultFont = "Engine/Fonts/Cheepicus12.font", ) where TStartingScreen : IScreenObject, new()
     {
       if (instance != null) return;
       GAME_WIDTH = width; GAME_HEIGHT = height;
@@ -58,6 +60,7 @@ namespace Ichigo.Engine
     {
       try
       {
+
         Settings.WindowTitle = "Ichigo Core";
 
         Builder startup = new Builder()

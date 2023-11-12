@@ -10,6 +10,14 @@
     <StartupObject></StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Locale\en-us.lang" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Locale\en-us.lang" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
@@ -27,6 +35,7 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
+    <Folder Include="Engine\Uils\" />
     <Folder Include="Items\" />
     <Folder Include="Screens\" />
   </ItemGroup>
