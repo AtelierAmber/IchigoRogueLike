@@ -24,9 +24,4 @@
     <ProjectReference Include="..\TheSadRogue.Integration\TheSadRogue.Integration\TheSadRogue.Integration.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Engine\ECS\" />
-  </ItemGroup>
-
 </Project>
