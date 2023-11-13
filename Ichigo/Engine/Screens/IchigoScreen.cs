@@ -1,18 +1,12 @@
 ﻿using System;
-using SadConsole;
-using SadConsole.Components;
 using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine.Maps;
 using Ichigo.Engine.Screens.Menus;
 using Ichigo.Engine.Screens.States;
-using Ichigo.Engine.Themes;
-using StatusPanel = Ichigo.Engine.Screens.Surfaces.StatusPanel;
 using Ichigo.Engine.Screens.Surfaces;
-
-/// <summary>
-/// Main game screen that shows map, message log, etc.  It supports a number of "states", where states are components
-/// which are attached to the map's DefaultRenderer and implement controls/logic for the state.
-/// </summary>
+using Ichigo.Engine.Themes;
+using SadConsole;
+using SadConsole.Components;
 
 namespace Ichigo.Engine.Screens
 {
@@ -51,7 +45,7 @@ namespace Ichigo.Engine.Screens
       Map = map;
 
       // Create a renderer for the map, specifying viewport size.
-      Map.DefaultRenderer = Map.CreateRenderer((Core.ScreenWidth, Core.ScreenHeight - BottomPanelHeight));
+      Map.DefaultRenderer = Map.CreateRenderer((Core.WindowWidth, Core.WindowHeight - BottomPanelHeight));
 
       // Make the Map (which is also a screen object) a child of this screen, and ensure the default renderer receives input focus.
       Children.Add(Map);
@@ -62,17 +56,17 @@ namespace Ichigo.Engine.Screens
       Map.DefaultRenderer.SadComponents.Add(ViewLock);
 
       // Create message log
-      MessagePanel = new MessageLogPanel(Core.ScreenWidth - StatusBarWidth - 1, BottomPanelHeight)
+      MessagePanel = new MessageLogPanel(Core.WindowWidth - StatusBarWidth - 1, BottomPanelHeight)
       {
         Parent = this,
-        Position = new(StatusBarWidth + 1, Core.ScreenHeight - BottomPanelHeight)
+        Position = new(StatusBarWidth + 1, Core.WindowHeight - BottomPanelHeight)
       };
 
       // Create status panel
       StatusPanel = new(StatusBarWidth, BottomPanelHeight)
       {
         Parent = this,
-        Position = new(0, Core.ScreenHeight - BottomPanelHeight)
+        Position = new(0, Core.WindowHeight - BottomPanelHeight)
       };
 
       // Set main map state as default

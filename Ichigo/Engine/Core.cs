@@ -27,13 +27,17 @@ namespace Ichigo.Engine
 
     private static int GAME_WIDTH = 80, GAME_HEIGHT = 50;
 
+    public static int WindowWidth => GameHost.Instance.ScreenCellsX;
+
+    public static int WindowHeight => GameHost.Instance.ScreenCellsY;
+
     public static void Start<TStartingScreen>(int width, int height, bool setStartAsGame = false, 
-      string defaultFont = "Engine/Fonts/Cheepicus12.font", ) where TStartingScreen : IScreenObject, new()
+      string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
     {
       if (instance != null) return;
       GAME_WIDTH = width; GAME_HEIGHT = height;
       instance = new Core();
-      instance.InitializeAndStart<TStartingScreen>();
+      instance.InitializeAndRun<TStartingScreen>();
     }
 
     private IScreenObject? gameScreen;
@@ -56,7 +60,7 @@ namespace Ichigo.Engine
     // Null override because it's initialized via new-game/load game
     public RogueLikeEntity Player = null!;
 
-    public void InitializeAndStart<TStartingScreen>(bool setStartAsGame = false, string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
+    public void InitializeAndRun<TStartingScreen>(bool setStartAsGame = false, string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
     {
       try
       {
@@ -91,9 +95,19 @@ namespace Ichigo.Engine
       MessageLog = new MessageLog(1000); 
     }
 
-    public void ChangeScreen<T> (T newScreen) where T : ScreenObject
+    public void ChangeScreen<T> (T newScreen) where T : IScreenObject
     {
       GameHost.Instance.Screen = newScreen;
+    }
+
+    public IScreenObject CuurrentScreen()
+    {
+      return CurrentScreen<IScreenObject>();
+    }
+
+    public CastTo CurrentScreen<CastTo>()
+    {
+      return (CastTo)GameHost.Instance.Screen;
     }
   } 
 }

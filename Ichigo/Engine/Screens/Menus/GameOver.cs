@@ -46,7 +46,7 @@ namespace Ichigo.Engine.Screens.Menus
 
             Core.Instance.GameScreen = null;
             
-            GameHost.Instance.Screen = new MainMenu();
+            //GameHost.Instance.Screen = new MainMenu();
         }
 
         private void ExitOnClick(object? sender, EventArgs e)
