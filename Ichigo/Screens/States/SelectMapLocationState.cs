@@ -1,25 +1,29 @@
 ﻿using SadConsole;
 using System;
 using System.Linq;
+using Ichigo.Engine.Maps;
 using Ichigo.Engine.Screens.Components;
 using SadConsole.Input;
 using SadRogue.Integration;
 using SadRogue.Primitives;
 using SadRogue.Primitives.GridViews;
+using Ichigo.Engine;
+using Ichigo.Engine.Screens;
+using Ichigo.Engine.Screens.States;
 
-namespace Ichigo.Engine.Screens.States
+namespace Ichigo.Screens.States
 {
-  /// <summary>
-  /// The look marker's position, relative to the map and the surface.
-  /// </summary>
-  /// <param name="SurfacePosition">The look marker's position relative to the surface it's a child of.</param>
-  /// <param name="MapPosition">The look marker's position on the map being rendered.</param>
-  internal record struct LookMarkerPosition(Point SurfacePosition, Point MapPosition);
+    /// <summary>
+    /// The look marker's position, relative to the map and the surface.
+    /// </summary>
+    /// <param name="SurfacePosition">The look marker's position relative to the surface it's a child of.</param>
+    /// <param name="MapPosition">The look marker's position on the map being rendered.</param>
+    internal record struct LookMarkerPosition(Point SurfacePosition, Point MapPosition);
 
     /// <summary>
     /// State where the user is looking around and selecting a location on the map.
     /// </summary>
-    internal class SelectMapLocationState : StateBase
+    internal class SelectMapLocationState : IchigoState
     {
         /// <summary>
         /// The surface used to display where the user is looking.
@@ -44,26 +48,28 @@ namespace Ichigo.Engine.Screens.States
         /// <summary>
         /// Called when the position of the look marker changes.
         /// </summary>
-        public Action<LookMarkerPosition>? PositionChanged;
+        public Action<LookMarkerPosition> PositionChanged;
 
         /// <summary>
         /// Called when the user selects a position by left-clicking or pressing enter.
         /// </summary>
-        public Action<LookMarkerPosition>? PositionSelected;
+        public Action<LookMarkerPosition> PositionSelected;
 
         // Keybindings component used to handle keyboard input controls for the look marker.
         private readonly SelectLocationKeybindingsComponent _keybindings;
-        private readonly Func<Point>? _getLookMarkerSurfaceStartingLocation;
+        private readonly Func<Point> _getLookMarkerSurfaceStartingLocation;
         private Point _lastMousePosition = Point.None;
 
         private readonly Color _lookMarkerColor = new(200, 0, 0, 170);
 
+        private GameMap gameMap;
+
         public SelectMapLocationState(IchigoScreen gameScreen,
             int radius = 0,
             Radius? radiusShape = null,
-            Action<LookMarkerPosition>? positionChanged = null,
-            Action<LookMarkerPosition>? positionSelected = null,
-            Func<Point>? getLookMarkerSurfaceStartingLocation = null)
+            Action<LookMarkerPosition> positionChanged = null,
+            Action<LookMarkerPosition> positionSelected = null,
+            Func<Point> getLookMarkerSurfaceStartingLocation = null)
             : base(gameScreen, false, false, true, false)
         {
             // Store callbacks and radius parameters
@@ -71,7 +77,7 @@ namespace Ichigo.Engine.Screens.States
             PositionSelected = positionSelected;
             _getLookMarkerSurfaceStartingLocation = getLookMarkerSurfaceStartingLocation;
             Radius = radius;
-            RadiusShape = radiusShape ?? GameScreen.Map.DistanceMeasurement;
+            RadiusShape = radiusShape ?? gameMap.DistanceMeasurement;
 
             // Create the console we'll use as the marker to show where the user is looking.
             LookMarker = new(radius * 2 + 1, radius * 2 + 1)
@@ -82,7 +88,7 @@ namespace Ichigo.Engine.Screens.States
             var dist = (Distance)RadiusShape;
             foreach (var pos in LookMarker.Surface.Positions().Where(pos => dist.Calculate(center, pos) <= Radius))
                 LookMarker.Surface.SetBackground(pos.X, pos.Y, _lookMarkerColor);
-            
+
             //LookMarker.Surface.Fill(Color.Transparent, _lookMarkerColor, 0);
             LookMarkerPosition = new(Point.Zero, Point.Zero);
 
@@ -92,24 +98,22 @@ namespace Ichigo.Engine.Screens.States
             // Create the keybindings component we'll use to handle input
             _keybindings = new(LookMarker);
             _keybindings.SetAction(Keys.Enter, OnPositionSelected);
-            _keybindings.SetAction(Keys.Escape, () => GameScreen.CurrentState = new MainMapState(GameScreen));
+            _keybindings.SetAction(Keys.Escape, () => { } /*GameScreen.CurrentState = new MainMapState(GameScreen)*/);
         }
 
-        public override void OnAdded(IScreenObject host)
+        public override void OnEnter()
         {
-            base.OnAdded(host);
-            host.Children.Add(LookMarker);
-            host.SadComponents.Add(_keybindings);
+            Parent.Children.Add(LookMarker);
+            Parent.SadComponents.Add(_keybindings);
 
             // Update the look marker's position to the starting location
             SetPositionBasedOnCenter(_getLookMarkerSurfaceStartingLocation?.Invoke() ?? Core.Instance.Player.Position - ((IScreenSurface)host).Surface.ViewPosition);
         }
 
-        public override void OnRemoved(IScreenObject host)
+        public override void OnExit()
         {
-            base.OnRemoved(host);
-            host.Children.Remove(LookMarker);
-            host.SadComponents.Remove(_keybindings);
+            Parent.Children.Remove(LookMarker);
+            Parent.SadComponents.Remove(_keybindings);
         }
 
         public override void ProcessMouse(IScreenObject host, MouseScreenObjectState state, out bool handled)
@@ -162,17 +166,17 @@ namespace Ichigo.Engine.Screens.States
         }
 
         private void SetPositionBasedOnCenter(Point center)
-            => LookMarker.Position = new Rectangle(center, Radius, Radius).Position; 
+            => LookMarker.Position = new Rectangle(center, Radius, Radius).Position;
 
-        private void LookMarker_PositionChanged(object? sender, ValueChangedEventArgs<Point> e)
+        private void LookMarker_PositionChanged(object sender, ValueChangedEventArgs<Point> e)
         {
             // The entity position is in surface position; so we calculate the map position based on that
             var newValue = e.NewValue + Radius;
             LookMarkerPosition = new(newValue, newValue + (Parent?.Surface.ViewPosition ?? Point.Zero));
 
             // Generate the text to display in the status panel.
-            var entityName = "You see " + (GameScreen.Map.GetEntityAt<RogueLikeEntity>(LookMarkerPosition.MapPosition)?.Name ?? "nothing here.");
-            GameScreen.StatusPanel.LookInfo.DisplayText = entityName;
+            var entityName = "You see " + (gameMap.GetEntityAt<RogueLikeEntity>(LookMarkerPosition.MapPosition)?.Name ?? "nothing here.");
+            //GameScreen.StatusPanel.LookInfo.DisplayText = entityName;
 
             PositionChanged?.Invoke(LookMarkerPosition);
         }
