@@ -10,25 +10,18 @@
     <StartupObject></StartupObject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Locale\en-us.lang" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Locale\en-us.lang" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
-    <PackageReference Include="SadConsole.Extended" Version="10.0.0" />
     <PackageReference Include="SadConsole.GoRogueHelpers" Version="1.0.1" />
-    <PackageReference Include="SadConsole.Host.MonoGame" Version="10.0.0" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\GoRogue\GoRogue\GoRogue.csproj" />
+    <ProjectReference Include="..\SadConsole\SadConsole.Extended\SadConsole.Extended.csproj" />
+    <ProjectReference Include="..\SadConsole\SadConsole.Host.MonoGame\SadConsole.Host.MonoGame.csproj" />
+    <ProjectReference Include="..\SadConsole\SadConsole\SadConsole.csproj" />
     <ProjectReference Include="..\TheSadRogue.Integration\TheSadRogue.Integration\TheSadRogue.Integration.csproj" />
   </ItemGroup>
 
@@ -37,7 +30,7 @@
     <Folder Include="Components\" />
     <Folder Include="Engine\Uils\" />
     <Folder Include="Items\" />
-    <Folder Include="Screens\" />
+    <Folder Include="Locale\" />
   </ItemGroup>
 
 </Project>
