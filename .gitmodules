@@ -6,3 +6,6 @@
 	path = TheSadRogue.Integration
 	url = https://github.com/AtelierAmber/TheSadRogue.Integration.git
   branch = update-v10
+[submodule "SadConsole"]
+	path = SadConsole
+	url = https://github.com/Thraka/SadConsole.git
