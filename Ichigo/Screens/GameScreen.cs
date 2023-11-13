@@ -1,5 +1,4 @@
 ﻿using Ichigo.Engine.Maps;
-using Ichigo.Engine.Screens.Surfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +11,11 @@ using Ichigo.Engine.Themes;
 using Ichigo.Engine;
 using Ichigo.Engine.Screens;
 using Ichigo.Engine.Screens.States;
+using Ichigo.Screens.Menus;
 
 namespace Ichigo.Screens
 {
-  public class GameScreen : IchigoScreen
+    public class GameScreen : IchigoScreen
   {
     public readonly GameMap Map;
     public readonly MessageLogPanel MessagePanel;

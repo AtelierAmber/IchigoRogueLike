@@ -1,14 +1,15 @@
-﻿using SadConsole;
+﻿using Ichigo.Engine;
+using SadConsole;
 using SadConsole.UI.Controls;
 using System;
 
 
-namespace Ichigo.Engine.Screens.Menus
+namespace Ichigo.Screens.Menus
 {
-  /// <summary>
-  /// Menu that is displayed when the player dies.
-  /// </summary>
-  internal class GameOver : MainGameMenu
+    /// <summary>
+    /// Menu that is displayed when the player dies.
+    /// </summary>
+    internal class GameOver : MainGameMenu
     {
         public GameOver()
             : base(29, 6)
@@ -40,16 +41,16 @@ namespace Ichigo.Engine.Screens.Menus
             Controls.Add(exitButton);
         }
 
-        private void MainMenuOnClick(object? sender, EventArgs e)
+        private void MainMenuOnClick(object sender, EventArgs e)
         {
             Hide();
 
             Core.Instance.GameScreen = null;
-            
+
             //GameHost.Instance.Screen = new MainMenu();
         }
 
-        private void ExitOnClick(object? sender, EventArgs e)
+        private void ExitOnClick(object sender, EventArgs e)
         {
             SadConsole.Game.Instance.MonoGameInstance.Exit();
         }

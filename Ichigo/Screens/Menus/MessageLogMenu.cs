@@ -1,11 +1,12 @@
 ﻿using GoRogue;
+using Ichigo.Engine;
 using SadConsole;
 using SadRogue.Primitives;
 
 
-namespace Ichigo.Engine.Screens.Menus
+namespace Ichigo.Screens.Menus
 {
-  internal class MessageLogMenu : ScrollableTextMenu
+    internal class MessageLogMenu : ScrollableTextMenu
     {
         private bool _firstMessage;
         private int _linesOfPreviousMessage;
@@ -42,7 +43,7 @@ namespace Ichigo.Engine.Screens.Menus
             base.Clear();
         }
 
-        private void MessageLogMenu_ParentChanged(object? sender, ValueChangedEventArgs<IScreenObject> e)
+        private void MessageLogMenu_ParentChanged(object sender, ValueChangedEventArgs<IScreenObject> e)
         {
             if (e.NewValue == null)
             {
@@ -57,7 +58,7 @@ namespace Ichigo.Engine.Screens.Menus
             }
         }
 
-        private void MessageLog_MessageAdded(object? sender, MessageAddedEventArgs e)
+        private void MessageLog_MessageAdded(object sender, MessageAddedEventArgs e)
         {
             // Overwrite previous message text with the count, if it's the same.
             // We make sure we shift back a number of rows equal to the number of lines in the previous message.

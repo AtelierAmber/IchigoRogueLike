@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using SadRogue.Integration;
 using SadRogue.Integration.Components;
-using Ichigo.Engine.MapObjects.Components.Items;
 using Ichigo.Engine.Themes;
+using Ichigo.Engine.Features.Items;
 
 /// <summary>
 /// Component representing an inventory which can hold a given number of items.
@@ -11,7 +11,7 @@ using Ichigo.Engine.Themes;
 
 namespace Ichigo.Engine.MapObjects.Components
 {
-  internal class Inventory : RogueLikeComponentBase<RogueLikeEntity>
+    internal class Inventory : RogueLikeComponentBase<RogueLikeEntity>
   {
     public int Capacity { get; }
 
