@@ -1,5 +1,6 @@
-﻿####################
+####################
 # English Locale
 ####################
 
-engine.item.noname=UNNAMED ITEM
+engine.item.name.noname=UNNAMED ITEM
+engine.item.description.nodescription=NO DESCRIPTION
