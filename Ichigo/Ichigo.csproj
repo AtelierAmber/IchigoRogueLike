@@ -10,6 +10,12 @@
     <StartupObject></StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Engine\Uils\**" />
+    <EmbeddedResource Remove="Engine\Uils\**" />
+    <None Remove="Engine\Uils\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
@@ -19,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GoRogue\GoRogue\GoRogue.csproj" />
+    <ProjectReference Include="..\Ichigo.Engine\Ichigo.Engine.csproj" />
     <ProjectReference Include="..\SadConsole\SadConsole.Extended\SadConsole.Extended.csproj" />
     <ProjectReference Include="..\SadConsole\SadConsole.Host.MonoGame\SadConsole.Host.MonoGame.csproj" />
     <ProjectReference Include="..\SadConsole\SadConsole\SadConsole.csproj" />
@@ -28,7 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="Engine\Uils\" />
     <Folder Include="Locale\" />
   </ItemGroup>
 

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GoRogue\GoRogue\GoRogue.csproj" />
+    <ProjectReference Include="..\SadConsole\SadConsole.Extended\SadConsole.Extended.csproj" />
+    <ProjectReference Include="..\SadConsole\SadConsole.Host.MonoGame\SadConsole.Host.MonoGame.csproj" />
+    <ProjectReference Include="..\SadConsole\SadConsole\SadConsole.csproj" />
+    <ProjectReference Include="..\TheSadRogue.Integration\TheSadRogue.Integration\TheSadRogue.Integration.csproj" />
+  </ItemGroup>
+
+</Project>
