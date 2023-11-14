@@ -7,7 +7,7 @@ using Ichigo.Engine.MapObjects;
 
 namespace Ichigo.Engine.Maps
 {
-  internal class TerrainFOVVisibilityHandler : MemoryFieldOfViewHandlerBase
+  public class TerrainFOVVisibilityHandler : MemoryFieldOfViewHandlerBase
   {
     protected override void ApplyMemoryAppearance(MemoryAwareRogueLikeCell terrain)
     {

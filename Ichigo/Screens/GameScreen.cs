@@ -6,6 +6,7 @@ using Ichigo.Engine.Screens;
 using Ichigo.Maps;
 using Ichigo.Screens.Menus;
 using Ichigo.Themes;
+using Ichigo.Engine.Maps;
 
 namespace Ichigo.Screens
 {
@@ -51,7 +52,7 @@ namespace Ichigo.Screens
       };
 
       // Set main map state as default
-      CurrentState = new MainMapState(this);
+      //CurrentState = new MainMapState(this);
 
       // Add player death handler
       Core.Instance.Player.AllComponents.GetFirst<UnitStats>().Died += PlayerDeath;
@@ -63,7 +64,7 @@ namespace Ichigo.Screens
     /// <summary>
     /// Called when the player dies.
     /// </summary>
-    private void PlayerDeath(object? s, EventArgs e)
+    private void PlayerDeath(object s, EventArgs e)
     {
       Core.Instance.MessageLog.Add(new("You have died!", MessageColors.PlayerDiedAppearance));
 
@@ -72,6 +73,21 @@ namespace Ichigo.Screens
       // Switch to game over screen
       Children.Add(new GameOver());
 
+    }
+
+    public override void Initialize()
+    {
+      
+    }
+
+    public override void Uninitialize()
+    {
+      
+    }
+
+    public override IchigoMap GetMap()
+    {
+      throw new NotImplementedException();
     }
   }
 }

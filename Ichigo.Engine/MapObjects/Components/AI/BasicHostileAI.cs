@@ -13,7 +13,7 @@ using Ichigo.Engine.Maps;
 
 namespace Ichigo.Engine.MapObjects.Components.AI
 {
-  internal class HostileAI : AIBase
+  public class BasicHostileAI : AIBase
   {
     private Point _lastPlayerPosition = Point.None;
 

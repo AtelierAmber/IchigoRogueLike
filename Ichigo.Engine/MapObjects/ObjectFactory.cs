@@ -7,7 +7,7 @@ using Ichigo.Engine.MapObjects.Components.AI;
 using Ichigo.Engine.Maps;
 
 
-internal readonly record struct TerrainAppearanceDefinition(ColoredGlyph Light, ColoredGlyph Dark);
+public readonly record struct TerrainAppearanceDefinition(ColoredGlyph Light, ColoredGlyph Dark);
 
 /// <summary>
 /// Simple class with some static functions for creating map objects.

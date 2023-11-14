@@ -9,7 +9,7 @@ using Ichigo.Themes;
 
 namespace Ichigo.Items
 {
-    internal class LightningDamageConsumable : RogueLikeComponentBase<RogueLikeEntity>, IConsumable
+    public class LightningDamageConsumable : RogueLikeComponentBase<RogueLikeEntity>, IConsumable
     {
         public readonly int Damage;
         public readonly int MaxRange;

@@ -7,7 +7,7 @@ using SadRogue.Integration;
 
 namespace Ichigo.Engine.Features.Items
 {
-    internal interface IConsumable : ICarryable
+    public interface IConsumable : ICarryable
     {
         /// <summary>
         /// Returns a state object, if the item needs to get a target or otherwise

@@ -22,7 +22,7 @@ namespace Ichigo.Maps
   public class GameMap : RogueLikeMap
   {
 
-    public GameMap(int width, int height, DefaultRendererParams? defaultRendererParams)
+    public GameMap(int width, int height, DefaultRendererParams defaultRendererParams)
         : base(width, height, defaultRendererParams, Enum.GetValues<MapFactory.Layer>().Length - 1, Distance.Chebyshev)
     {
       // Ensures HostileDeath is triggered when anything except the player dies so that corpses appear and messages trigger.
@@ -82,7 +82,7 @@ namespace Ichigo.Maps
       }
     }
 
-    private static void EntitiesOnItemAdded(object? sender, ItemEventArgs<IGameObject> e)
+    private static void EntitiesOnItemAdded(object sender, ItemEventArgs<IGameObject> e)
     {
       if (e.Item != Core.Instance.Player)
       {
@@ -93,7 +93,7 @@ namespace Ichigo.Maps
       }
     }
 
-    private static void EntitiesOnItemRemoved(object? sender, ItemEventArgs<IGameObject> e)
+    private static void EntitiesOnItemRemoved(object sender, ItemEventArgs<IGameObject> e)
     {
       if (e.Item != Core.Instance.Player)
       {
@@ -104,7 +104,7 @@ namespace Ichigo.Maps
       }
     }
 
-    private static void HostileDeath(object? s, EventArgs e)
+    private static void HostileDeath(object s, EventArgs e)
     {
       var hostile = ((Combatant)s!).Parent!;
 

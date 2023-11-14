@@ -1,4 +1,5 @@
-﻿using Ichigo.Engine.Screens.States;
+﻿using Ichigo.Engine.Maps;
+using Ichigo.Engine.Screens.States;
 using SadConsole;
 
 namespace Ichigo.Engine.Screens
@@ -15,5 +16,6 @@ namespace Ichigo.Engine.Screens
     public abstract void Initialize();
     public abstract void Uninitialize();
 
+    public abstract IchigoMap GetMap();
   }
 }

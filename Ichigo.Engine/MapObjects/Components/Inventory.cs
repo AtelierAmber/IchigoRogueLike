@@ -8,7 +8,7 @@ using Ichigo.Engine.Features.Items;
 
 namespace Ichigo.Engine.MapObjects.Components
 {
-    internal class Inventory : RogueLikeComponentBase<RogueLikeEntity>
+  public class Inventory : RogueLikeComponentBase<RogueLikeEntity>
   {
     public int Capacity { get; }
 
@@ -69,7 +69,7 @@ namespace Ichigo.Engine.MapObjects.Components
         {
           if (isPlayer)
           {
-           // Core.Instance.MessageLog.Add(new("Your inventory is full.", MessageColors.ImpossibleActionAppearance));
+            // Core.Instance.MessageLog.Add(new("Your inventory is full.", MessageColors.ImpossibleActionAppearance));
           }
 
           return false;

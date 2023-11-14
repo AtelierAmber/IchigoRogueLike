@@ -29,26 +29,12 @@ namespace Ichigo.Engine
     public static int WindowHeight => GameHost.Instance.ScreenCellsY;
 
     public static void Start<TStartingScreen>(int width, int height, bool setStartAsGame = false,
-      string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
+      string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IchigoScreen, new()
     {
       if (instance != null) return;
       GAME_WIDTH = width; GAME_HEIGHT = height;
       instance = new Core();
       instance.InitializeAndRun<TStartingScreen>();
-    }
-
-    private IScreenObject gameScreen;
-
-    public IchigoScreen GameScreen
-    {
-      get => (IchigoScreen)gameScreen;
-      set
-      {
-        if (gameScreen == value) return;
-
-        GameScreen?.Uninitialize();
-        gameScreen = value;
-      }
     }
 
     public ActionController ActionController { get; private set; }
@@ -59,7 +45,7 @@ namespace Ichigo.Engine
     // Null override because it's initialized via new-game/load game
     public RogueLikeEntity Player = null!;
 
-    public void InitializeAndRun<TStartingScreen>(bool setStartAsGame = false, string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
+    public void InitializeAndRun<TStartingScreen>(bool setStartAsGame = false, string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IchigoScreen, new()
     {
       Settings.WindowTitle = "Ichigo Core";
       try
@@ -76,7 +62,7 @@ namespace Ichigo.Engine
 
         SadConsole.Game.Create(startup);
         SadConsole.Game.Instance.Started += Init;
-        gameScreen = SadConsole.Game.Instance.Screen;
+        (SadConsole.Game.Instance.Screen as IchigoScreen).Initialize();
         SadConsole.Game.Instance.Run();
       }
       catch (Exception e)
@@ -89,19 +75,21 @@ namespace Ichigo.Engine
       }
     }
 
-    private void Init(object? sender, GameHost host)
+    private void Init(object sender, GameHost host)
     {
       MessageLog = new MessageLog(1000);
     }
 
-    public void ChangeScreen<T>(T newScreen) where T : IScreenObject
+    public void ChangeScreen<T>(T newScreen) where T : IchigoScreen
     {
+      newScreen.Initialize();
+      CurrentScreen().Uninitialize();
       GameHost.Instance.Screen = newScreen;
     }
 
-    public IScreenObject CuurrentScreen()
+    public IchigoScreen CurrentScreen()
     {
-      return CurrentScreen<IScreenObject>();
+      return CurrentScreen<IchigoScreen>();
     }
 
     public CastTo CurrentScreen<CastTo>()

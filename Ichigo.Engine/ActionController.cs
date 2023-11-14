@@ -8,5 +8,9 @@ namespace Ichigo.Engine
 {
   public class ActionController
   {
+    public event EventHandler OnFinishPlayerAction;
+
+    public ActionController() { }
+
   }
 }

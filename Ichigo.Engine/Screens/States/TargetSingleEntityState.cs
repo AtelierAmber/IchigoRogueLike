@@ -1,12 +1,11 @@
 ﻿using System;
 using Ichigo.Engine;
 using Ichigo.Engine.Screens;
-using Ichigo.Themes;
 using SadConsole;
 using SadRogue.Integration;
 using SadRogue.Primitives;
 
-namespace Ichigo.Screens.States
+namespace Ichigo.Engine.Screens.States
 {
     internal class TargetSingleEntityState : SelectMapLocationState
     {
@@ -25,36 +24,36 @@ namespace Ichigo.Screens.States
 
         protected override bool ValidateSelectedPosition()
         {
-            var target = GameScreen.Map.GetEntityAt<RogueLikeEntity>(LookMarkerPosition.MapPosition);
+            var target = gameMap.GetEntityAt<RogueLikeEntity>(LookMarkerPosition.MapPosition);
             if (target == null)
             {
                 Core.Instance.MessageLog.Add(
-                    new("You must select an enemy to target.", MessageColors.ImpossibleActionAppearance));
+                    new("You must select an enemy to target."));
                 return false;
             }
 
             if (!_allowTargetSelf && target == Core.Instance.Player)
             {
                 Core.Instance.MessageLog.Add(
-                        new("You cannot target yourself.", MessageColors.ImpossibleActionAppearance));
+                        new("You cannot target yourself."));
                 return false;
             }
 
-            if (!_allowTargetNonVisible && !GameScreen.Map.PlayerFOV.BooleanResultView[target.Position])
+            if (!_allowTargetNonVisible && !gameMap.PlayerFOV.BooleanResultView[target.Position])
             {
                 Core.Instance.MessageLog.Add(
-                    new("You cannot target an area that you cannot see.", MessageColors.ImpossibleActionAppearance));
+                    new("You cannot target an area that you cannot see."));
                 return false;
             }
 
             return true;
         }
 
-        public override void OnAdded(IScreenObject host)
+        public override void OnEnter()
         {
-            base.OnAdded(host);
+            base.OnEnter();
 
-            Core.Instance.MessageLog.Add(new("Select an enemy to target.", MessageColors.NeedsTargetAppearance));
+            Core.Instance.MessageLog.Add(new("Select an enemy to target."));
         }
     }
 }

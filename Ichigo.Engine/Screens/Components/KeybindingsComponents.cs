@@ -42,7 +42,7 @@ namespace Ichigo.Engine.Screens.Components
     {
       if (Parent is not IControlable control)
       {
-        Logger.Error("Trying to control a non controllable object [" + Parent + " | " + Parent.GetType() + "]!");
+        Logger.Error("Trying to control a non controllable entity [" + Parent + " | " + Parent.GetType() + "]!");
         return;
       }
 
@@ -53,9 +53,8 @@ namespace Ichigo.Engine.Screens.Components
       }
       else
       {
-
+        control.Move(direction);
       }
-        PlayerActionHelper.PlayerTakeAction(GameMap.MoveOrBump, direction);
     }
   }
 
@@ -63,7 +62,7 @@ namespace Ichigo.Engine.Screens.Components
   /// Custom keybindings component which uses the MotionHandler to move a look marker around
   /// the screen.
   /// </summary>
-  internal class SelectLocationKeybindingsComponent : CustomKeybindingsComponent<IScreenSurface>
+  public class SelectLocationKeybindingsComponent : CustomKeybindingsComponent<IScreenSurface>
   {
     private readonly IScreenSurface _lookMarker;
 

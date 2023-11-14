@@ -11,7 +11,7 @@ using SadRogue.Primitives;
 
 namespace Ichigo.Engine.MapObjects.Components
 {
-  internal class PlayerFOVController : RogueLikeComponentBase<RogueLikeEntity>
+  public class PlayerFOVController : RogueLikeComponentBase<RogueLikeEntity>
   {
     /// <summary>
     /// The sight radius of the player.
@@ -33,12 +33,12 @@ namespace Ichigo.Engine.MapObjects.Components
     public void CalculateFOV()
         => Parent?.CurrentMap?.PlayerFOV.Calculate(Parent.Position, FOVRadius, Parent.CurrentMap.DistanceMeasurement);
 
-    private void OnAdded(object? s, EventArgs e) => Parent!.PositionChanged += OnPositionChanged;
+    private void OnAdded(object s, EventArgs e) => Parent!.PositionChanged += OnPositionChanged;
 
-    private void OnRemoved(object? s, ParentAwareComponentRemovedEventArgs<RogueLikeEntity> e)
+    private void OnRemoved(object s, ParentAwareComponentRemovedEventArgs<RogueLikeEntity> e)
         => e.OldParent.PositionChanged -= OnPositionChanged;
 
-    private void OnPositionChanged(object? sender, ValueChangedEventArgs<Point> e)
+    private void OnPositionChanged(object sender, ValueChangedEventArgs<Point> e)
         => CalculateFOV();
   }
 }

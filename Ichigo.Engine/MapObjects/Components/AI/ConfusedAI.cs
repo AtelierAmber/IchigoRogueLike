@@ -9,7 +9,7 @@ namespace Ichigo.Engine.MapObjects.Components.AI
   /// AI for a confused enemy.  A confused enemy will stumble around aimlessly for a given number of turns, then revert to its previous AI.
   /// If an actor occupies a tile it is randomly moving into, it will attack.
   /// </summary>
-  internal class ConfusedAI : AIBase
+  public class ConfusedAI : AIBase
   {
     private int _numTurns;
     private readonly AIBase _previousAI;

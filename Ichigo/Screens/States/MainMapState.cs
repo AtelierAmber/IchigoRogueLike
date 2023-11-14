@@ -1,9 +1,5 @@
-﻿using Ichigo.Engine;
-using Ichigo.Engine.MapObjects.Components;
-using Ichigo.Engine.Screens.Components;
-using Ichigo.Engine.Screens.Menus;
+﻿using Ichigo.Engine.Screens.Components;
 using Ichigo.Engine.Screens.States;
-using SadConsole.Input;
 
 namespace Ichigo.Screens.States
 {
@@ -19,11 +15,11 @@ namespace Ichigo.Screens.States
         {
             _keybindings = new MovementKeybindingsComponent();
             // Add controls for picking up items and getting to inventory screen.
-            _keybindings.SetAction(Keys.G, () => PlayerActionHelper.PlayerTakeAction(e => e.AllComponents.GetFirst<Inventory>().PickUp()));
+            //_keybindings.SetAction(Keys.G, () => PlayerActionHelper.PlayerTakeAction(e => e.AllComponents.GetFirst<Inventory>().PickUp()));
 
             // Controls for menus
-            _keybindings.SetAction(Keys.C, () => Parent.Children.Add(new ConsumableSelect()));
-            _keybindings.SetAction(Keys.M, () => Parent.Children.Add(new MessageLogMenu(50, 24, 1000)));
+            //_keybindings.SetAction(Keys.C, () => Parent.Children.Add(new ConsumableSelect()));
+            //_keybindings.SetAction(Keys.M, () => Parent.Children.Add(new MessageLogMenu(50, 24, 1000)));
 
             // "Look" functionality Keybinding
             //_keybindings.SetAction(Keys.OemQuestion, () => Parent.CurrentState = new SelectMapLocationState(GameScreen));

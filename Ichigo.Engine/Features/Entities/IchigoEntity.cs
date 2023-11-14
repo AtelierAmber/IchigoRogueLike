@@ -11,7 +11,7 @@ using SadRogue.Primitives;
 
 namespace Ichigo.Engine.Features.Entities
 {
-  internal class IchigoEntity : RogueLikeEntity
+  public class IchigoEntity : RogueLikeEntity
   {
     #region Constructors
     public IchigoEntity(int glyph, bool walkable = true, bool transparent = true, int layer = 1, Func<uint> idGenerator = null)
