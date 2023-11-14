@@ -1,4 +1,5 @@
-﻿using SadConsole;
+﻿using Ichigo.Engine.MapObjects.Components;
+using SadConsole;
 using SadRogue.Primitives;
 using Ichigo.Engine.Maps;
 using SadRogue.Integration.Keybindings;
@@ -10,7 +11,7 @@ using SadRogue.Integration.Keybindings;
 
 namespace Ichigo.Engine.Screens.Components
 {
-  internal class CustomKeybindingsComponent<TParent> : KeybindingsComponent<TParent>
+  public class CustomKeybindingsComponent<TParent> : KeybindingsComponent<TParent>
     where TParent : class, IScreenObject
   {
     public CustomKeybindingsComponent(bool configureDefaultMotions = true, uint sortOrder = 5U)
@@ -31,18 +32,29 @@ namespace Ichigo.Engine.Screens.Components
   /// Custom keybindings component which uses the MotionHandler to drive player movement.
   /// Motion will count as the player's turn if (and only if) the move was successful.
   /// </summary>
-  internal class MainMapKeybindingsComponent : CustomKeybindingsComponent<IScreenObject>
+  public class MovementKeybindingsComponent : CustomKeybindingsComponent<IScreenObject>
   {
-    public MainMapKeybindingsComponent(uint sortOrder = 5U)
+    public MovementKeybindingsComponent(uint sortOrder = 5U)
         : base(true, sortOrder)
     { }
 
     protected override void MotionHandler(Direction direction)
     {
+      if (Parent is not IControlable control)
+      {
+        Logger.Error("Trying to control a non controllable object [" + Parent + " | " + Parent.GetType() + "]!");
+        return;
+      }
+
       // If we're waiting a turn, there's nothing to do; it's always a valid turn to wait
       if (direction == Direction.None)
-        PlayerActionHelper.PlayerTakeAction(_ => true);
+      {
+        control.TakeNoAction();
+      }
       else
+      {
+
+      }
         PlayerActionHelper.PlayerTakeAction(GameMap.MoveOrBump, direction);
     }
   }

@@ -2,10 +2,10 @@
 using SadRogue.Integration;
 using SadRogue.Integration.Components;
 using SadRogue.Primitives;
-using Ichigo.Engine.Themes;
 using Ichigo.Engine;
 using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine.Features.Items;
+using Ichigo.Themes;
 
 namespace Ichigo.Items
 {

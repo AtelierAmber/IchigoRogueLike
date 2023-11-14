@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using SadRogue.Integration;
+﻿using SadRogue.Integration;
 using SadRogue.Integration.Components;
-using Ichigo.Engine.Themes;
 using Ichigo.Engine.Features.Items;
 
 /// <summary>
@@ -43,7 +40,9 @@ namespace Ichigo.Engine.MapObjects.Components
       Parent.CurrentMap.AddEntity(item);
 
       if (Parent == Core.Instance.Player)
-        Core.Instance.MessageLog.Add(new($"You dropped the {item.Name}.", MessageColors.ItemDroppedAppearance));
+      {
+        //Core.Instance.MessageLog.Add(new($"You dropped the {item.Name}.", MessageColors.ItemDroppedAppearance));
+      }
     }
 
     /// <summary>
@@ -69,8 +68,10 @@ namespace Ichigo.Engine.MapObjects.Components
         if (inventory.Items.Count >= inventory.Capacity)
         {
           if (isPlayer)
-            Core.Instance.MessageLog.Add(new("Your inventory is full.",
-                MessageColors.ImpossibleActionAppearance));
+          {
+           // Core.Instance.MessageLog.Add(new("Your inventory is full.", MessageColors.ImpossibleActionAppearance));
+          }
+
           return false;
         }
 
@@ -78,13 +79,18 @@ namespace Ichigo.Engine.MapObjects.Components
         inventory.Items.Add(item);
 
         if (isPlayer)
-          Core.Instance.MessageLog.Add(new($"You picked up the {item.Name}.",
-              MessageColors.ItemPickedUpAppearance));
+        {
+          //Core.Instance.MessageLog.Add(new($"You picked up the {item.Name}.", MessageColors.ItemPickedUpAppearance));
+        }
 
         return true;
       }
+
       if (isPlayer)
-        Core.Instance.MessageLog.Add(new("There is nothing here to pick up.", MessageColors.ImpossibleActionAppearance));
+      {
+        //Core.Instance.MessageLog.Add(new("There is nothing here to pick up.", MessageColors.ImpossibleActionAppearance));
+      }
+
       return false;
     }
 
@@ -104,7 +110,7 @@ namespace Ichigo.Engine.MapObjects.Components
       var stateHandler = consumable.GetStateHandler(Parent);
       if (stateHandler != null)
       {
-        Core.Instance.GameScreen!.CurrentState = stateHandler;
+        //Core.Instance.GameScreen!.CurrentState = stateHandler;
         return false; // We haven't consumed the item, so we'll return false.
       }
 

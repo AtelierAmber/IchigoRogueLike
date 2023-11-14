@@ -1,10 +1,7 @@
 ﻿
-using System;
-using System.Globalization;
 using Ichigo.Engine.Screens;
 using SadConsole;
 using SadConsole.Configuration;
-using SadConsole.UI;
 using SadRogue.Integration;
 
 /// <summary>
@@ -12,9 +9,9 @@ using SadRogue.Integration;
 /// </summary>
 namespace Ichigo.Engine
 {
-    public class Core
+  public class Core
   {
-    private static Core? instance;
+    private static Core instance;
     public static Core Instance
     {
       get
@@ -31,7 +28,7 @@ namespace Ichigo.Engine
 
     public static int WindowHeight => GameHost.Instance.ScreenCellsY;
 
-    public static void Start<TStartingScreen>(int width, int height, bool setStartAsGame = false, 
+    public static void Start<TStartingScreen>(int width, int height, bool setStartAsGame = false,
       string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
     {
       if (instance != null) return;
@@ -40,11 +37,11 @@ namespace Ichigo.Engine
       instance.InitializeAndRun<TStartingScreen>();
     }
 
-    private IScreenObject? gameScreen;
+    private IScreenObject gameScreen;
 
-    public IchigoScreen? GameScreen
+    public IchigoScreen GameScreen
     {
-      get => (IchigoScreen?)gameScreen;
+      get => (IchigoScreen)gameScreen;
       set
       {
         if (gameScreen == value) return;
@@ -54,6 +51,8 @@ namespace Ichigo.Engine
       }
     }
 
+    public ActionController ActionController { get; private set; }
+
     // Null override because it's initialized via Init
     public MessageLog MessageLog = null!;
 
@@ -62,10 +61,10 @@ namespace Ichigo.Engine
 
     public void InitializeAndRun<TStartingScreen>(bool setStartAsGame = false, string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IScreenObject, new()
     {
+      Settings.WindowTitle = "Ichigo Core";
       try
       {
-
-        Settings.WindowTitle = "Ichigo Core";
+        ActionController = new ActionController();
 
         Builder startup = new Builder()
             .SetScreenSize(GAME_WIDTH, GAME_HEIGHT)
@@ -92,10 +91,10 @@ namespace Ichigo.Engine
 
     private void Init(object? sender, GameHost host)
     {
-      MessageLog = new MessageLog(1000); 
+      MessageLog = new MessageLog(1000);
     }
 
-    public void ChangeScreen<T> (T newScreen) where T : IScreenObject
+    public void ChangeScreen<T>(T newScreen) where T : IScreenObject
     {
       GameHost.Instance.Screen = newScreen;
     }
@@ -109,5 +108,5 @@ namespace Ichigo.Engine
     {
       return (CastTo)GameHost.Instance.Screen;
     }
-  } 
+  }
 }

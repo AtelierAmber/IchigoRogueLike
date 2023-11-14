@@ -15,7 +15,7 @@ internal readonly record struct TerrainAppearanceDefinition(ColoredGlyph Light, 
 
 namespace Ichigo.Engine.MapObjects
 {
-  internal static class Factory
+  public static class ObjectFactory
   {
     /// <summary>
     /// Appearance definitions for various types of terrain objects.  It defines both their normal color, and their
@@ -39,16 +39,16 @@ namespace Ichigo.Engine.MapObjects
         },
     };
 
-    public static Terrain Floor(Point position)
-        => new(position, AppearanceDefinitions["Floor"], (int)GameMap.Layer.Terrain);
+    //public static Terrain Floor(Point position)
+    //    => new(position, AppearanceDefinitions["Floor"], (int)MapFactory.Layer.Terrain);
 
-    public static Terrain Wall(Point position)
-        => new(position, AppearanceDefinitions["Wall"], (int)GameMap.Layer.Terrain, false, false);
+    //public static Terrain Wall(Point position)
+    //    => new(position, AppearanceDefinitions["Wall"], (int)MapFactory.Layer.Terrain, false, false);
 
     public static RogueLikeEntity Player()
     {
       // Create entity with appropriate attributes
-      var player = new RogueLikeEntity('@', false, layer: (int)GameMap.Layer.Monsters)
+      var player = new RogueLikeEntity('@', false, layer: (int)MapFactory.Layer.Characters)
       {
         Name = "Player"
       };
@@ -67,38 +67,8 @@ namespace Ichigo.Engine.MapObjects
       return player;
     }
 
-    public static RogueLikeEntity Orc()
-    {
-      var enemy = new RogueLikeEntity(new Color(63, 127, 63), 'o', false, layer: (int)GameMap.Layer.Monsters)
-      {
-        Name = "Orc"
-      };
-
-      // Add AI component to bump action toward the player if the player is in view
-      enemy.AllComponents.Add(new HostileAI());
-      enemy.AllComponents.Add(new UnitStats(10, 0));
-      enemy.AllComponents.Add(new Combatant());
-
-      return enemy;
-    }
-
-    public static RogueLikeEntity Troll()
-    {
-      var enemy = new RogueLikeEntity(new Color(0, 127, 0), 'T', false, layer: (int)GameMap.Layer.Monsters)
-      {
-        Name = "Troll"
-      };
-
-      // Add AI component to bump action toward the player if the player is in view
-      enemy.AllComponents.Add(new HostileAI());
-      enemy.AllComponents.Add(new UnitStats(15, 0));
-      enemy.AllComponents.Add(new Combatant());
-
-      return enemy;
-    }
-
     public static RogueLikeEntity Corpse(RogueLikeEntity entity)
-        => new((ColoredGlyph)entity.AppearanceSingle.Appearance, layer: (int)GameMap.Layer.Items)
+        => new((ColoredGlyph)entity.AppearanceSingle.Appearance, layer: (int)MapFactory.Layer.Items)
         {
           Name = $"Remains - {entity.Name}",
           Position = entity.Position,

@@ -1,7 +1,7 @@
 ﻿using SadRogue.Integration;
 using Ichigo.Engine.MapObjects.Components.AI;
-using Ichigo.Engine.Themes;
 using Ichigo.Engine;
+using Ichigo.Themes;
 
 
 namespace Ichigo.Items

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ichigo.Engine.MapObjects.Components
 {
-  internal class UnitStats : RogueLikeComponentBase<RogueLikeEntity>
+  public class UnitStats : RogueLikeComponentBase<RogueLikeEntity>
   {
     private const int Priority = 0;
 

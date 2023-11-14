@@ -1,7 +1,7 @@
 ﻿using System;
 using Ichigo.Engine;
 using Ichigo.Engine.Screens;
-using Ichigo.Engine.Themes;
+using Ichigo.Themes;
 using SadConsole;
 using SadRogue.Integration;
 using SadRogue.Primitives;

@@ -1,7 +1,6 @@
 ﻿using System;
 using SadRogue.Integration;
 using SadRogue.Integration.Components;
-using Ichigo.Engine.Themes;
 using SadConsole;
 
 /// <summary>
@@ -10,7 +9,7 @@ using SadConsole;
 
 namespace Ichigo.Engine.MapObjects.Components
 {
-  internal class Combatant : RogueLikeComponentBase<RogueLikeEntity>, IBumpable
+  public class Combatant : RogueLikeComponentBase<RogueLikeEntity>, IBumpable
   {
 
     private UnitStats? stats = null;
@@ -27,14 +26,16 @@ namespace Ichigo.Engine.MapObjects.Components
       float damage = stats.Strength - target.stats.BluntDefense;
       string attackDesc = $"{Parent!.Name} attacks {target.Parent!.Name}";
 
-      var atkTextColor = Parent == Core.Instance.Player ? MessageColors.PlayerAtkAppearance : MessageColors.EnemyAtkAppearance;
+      //var atkTextColor = Parent == Core.Instance.Player ? MessageColors.PlayerAtkAppearance : MessageColors.EnemyAtkAppearance;
       if (damage > 0)
       {
-        Core.Instance.MessageLog.Add(new($"{attackDesc} for {damage} damage.", atkTextColor));
+        //Core.Instance.MessageLog.Add(new($"{attackDesc} for {damage} damage.", atkTextColor));
         target.stats.HP -= damage;
       }
       else
-        Core.Instance.MessageLog.Add(new($"{attackDesc} but does no damage.", atkTextColor));
+      {
+        //Core.Instance.MessageLog.Add(new($"{attackDesc} but does no damage.", atkTextColor));
+      }
     }
 
     public bool OnBumped(RogueLikeEntity source)

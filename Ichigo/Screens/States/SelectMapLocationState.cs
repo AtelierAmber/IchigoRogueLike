@@ -10,6 +10,7 @@ using SadRogue.Primitives.GridViews;
 using Ichigo.Engine;
 using Ichigo.Engine.Screens;
 using Ichigo.Engine.Screens.States;
+using Ichigo.Maps;
 
 namespace Ichigo.Screens.States
 {

@@ -1,10 +1,10 @@
 ﻿using SadConsole.Components;
 using SadRogue.Integration;
 using SadRogue.Integration.Components;
-using Ichigo.Engine.Themes;
 using Ichigo.Engine;
 using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine.Features.Items;
+using Ichigo.Themes;
 
 /// <summary>
 /// Consumable that restores up to the given amount of HP.

@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Linq;
 using GoRogue.GameFramework;
-using SadConsole;
-using SadRogue.Primitives;
-using SadRogue.Primitives.SpatialMaps;
+using Ichigo.Engine;
 using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine.MapObjects.Components.AI;
-using Ichigo.Engine.Themes;
+using Ichigo.Engine.Maps;
+using Ichigo.Themes;
+using SadConsole;
 using SadRogue.Integration;
 using SadRogue.Integration.Maps;
+using SadRogue.Primitives;
+using SadRogue.Primitives.SpatialMaps;
 
 
 /// <summary>
 /// Basic game map which determines layers based on a Layer enumeration and implements some core rules/actions, as well as corpse handling.
 /// </summary>
 
-namespace Ichigo.Engine.Maps
+namespace Ichigo.Maps
 {
   public class GameMap : RogueLikeMap
   {
 
     public GameMap(int width, int height, DefaultRendererParams? defaultRendererParams)
-        : base(width, height, defaultRendererParams, Enum.GetValues<Layer>().Length - 1, Distance.Chebyshev)
+        : base(width, height, defaultRendererParams, Enum.GetValues<MapFactory.Layer>().Length - 1, Distance.Chebyshev)
     {
       // Ensures HostileDeath is triggered when anything except the player dies so that corpses appear and messages trigger.
       Entities.ItemAdded += EntitiesOnItemAdded;
@@ -69,7 +71,7 @@ namespace Ichigo.Engine.Maps
     /// </summary>
     public void TakeEnemyTurns()
     {
-      var enemies = Entities.GetLayer((int)Layer.Monsters).Items.ToArray();
+      var enemies = Entities.GetLayer((int)MapFactory.Layer.Characters).Items.ToArray();
       var playerStats = Core.Instance.Player.GoRogueComponents.GetFirst<UnitStats>();
       foreach (var enemy in enemies)
       {
@@ -113,7 +115,7 @@ namespace Ichigo.Engine.Maps
       // Switch entity for corpse
       var map = hostile.CurrentMap!;
       map.RemoveEntity(hostile);
-      map.AddEntity(MapObjects.Factory.Corpse(hostile));
+      map.AddEntity(Engine.MapObjects.ObjectFactory.Corpse(hostile));
     }
   }
 }

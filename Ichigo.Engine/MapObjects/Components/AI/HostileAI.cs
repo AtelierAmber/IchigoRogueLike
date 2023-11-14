@@ -33,7 +33,7 @@ namespace Ichigo.Engine.MapObjects.Components.AI
       var path = Parent.CurrentMap.AStar.ShortestPath(Parent.Position, moveToPosition);
       if (path == null) return;
       var firstPoint = path.GetStep(0);
-      GameMap.MoveOrBump(Parent, Direction.GetDirection(Parent.Position, firstPoint));
+      //GameMap.MoveOrBump(Parent, Direction.GetDirection(Parent.Position, firstPoint));
     }
   }
 }

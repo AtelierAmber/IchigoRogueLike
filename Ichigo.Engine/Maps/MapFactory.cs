@@ -1,6 +1,7 @@
 ﻿using GoRogue.MapGeneration;
 using GoRogue.MapGeneration.ContextComponents;
 using GoRogue.Random;
+using SadRogue.Integration.Maps;
 using SadRogue.Primitives;
 using SadRogue.Primitives.GridViews;
 using ShaiRandom.Generators;
@@ -30,7 +31,7 @@ namespace Ichigo.Engine.Maps
   /// The map gen below won't use GoRogue's map generation system for the custom parts, although we could; it simply isn't
   /// necessary for the relatively simple, single type of map we have below.
   /// </remarks>
-  internal static class MapFactory
+  public static class MapFactory
   {
     /// <summary>
     /// Map layers for rendering/collision.
@@ -39,84 +40,84 @@ namespace Ichigo.Engine.Maps
     {
       Terrain = 0,
       Items,
-      Monsters
+      Characters
     }
-    public static GameMap Dungeon(DungeonGenConfig config)
+    public static RogueLikeMap Dungeon(DungeonGenConfig config)
     {
-      // Generate a dungeon maze map
-      var generator = new Generator(config.Width, config.Height)
-          .ConfigAndGenerateSafe(gen =>
-          {
-            gen.AddSteps(DefaultAlgorithms.DungeonMazeMapSteps(minRooms: config.MinRooms, maxRooms: config.MaxRooms,
-                  roomMinSize: config.RoomMinSize, roomMaxSize: config.RoomMaxSize, saveDeadEndChance: 0));
-          });
+      //// Generate a dungeon maze map
+      //var generator = new Generator(config.Width, config.Height)
+      //    .ConfigAndGenerateSafe(gen =>
+      //    {
+      //      gen.AddSteps(DefaultAlgorithms.DungeonMazeMapSteps(minRooms: config.MinRooms, maxRooms: config.MaxRooms,
+      //            roomMinSize: config.RoomMinSize, roomMaxSize: config.RoomMaxSize, saveDeadEndChance: 0));
+      //    });
 
-      // Extract components from the map GoRogue generated which hold basic information about the map
-      var generatedMap = generator.Context.GetFirst<ISettableGridView<bool>>("WallFloor");
-      var rooms = generator.Context.GetFirst<ItemList<Rectangle>>("Rooms");
+      //// Extract components from the map GoRogue generated which hold basic information about the map
+      //var generatedMap = generator.Context.GetFirst<ISettableGridView<bool>>("WallFloor");
+      //var rooms = generator.Context.GetFirst<ItemList<Rectangle>>("Rooms");
 
-      // Create actual integration library map with a proper component for the character "memory" system.
-      var map = new GameMap(generator.Context.Width, generator.Context.Height, null);
-      map.AllComponents.Add(new TerrainFOVVisibilityHandler());
+      //// Create actual integration library map with a proper component for the character "memory" system.
+      //var map = new GameMap(generator.Context.Width, generator.Context.Height, null);
+      //map.AllComponents.Add(new TerrainFOVVisibilityHandler());
 
-      // Translate GoRogue's terrain data into actual integration library objects.
-      map.ApplyTerrainOverlay(generatedMap, (pos, val) => val ? MapObjects.Factory.Floor(pos) : MapObjects.Factory.Wall(pos));
+      //// Translate GoRogue's terrain data into actual integration library objects.
+      //map.ApplyTerrainOverlay(generatedMap, (pos, val) => val ? MapObjects.ObjectFactory.Floor(pos) : MapObjects.ObjectFactory.Wall(pos));
 
-      // Spawn player
-      SpawnPlayer(map, rooms);
+      //// Spawn player
+      //SpawnPlayer(map, rooms);
 
-      // Spawn enemies/items/etc
-      SpawnMonsters(map, rooms, config.MaxMonstersPerRoom);
-      SpawnItems(map, rooms, config.MaxItemsPerRoom);
-
-      return map;
-    }
-
-    private static void SpawnPlayer(GameMap map, ItemList<Rectangle> rooms)
-    {
-      // Add player to map at the center of the first room we placed
-      Core.Instance.Player.Position = rooms.Items[0].Center;
-      map.AddEntity(Core.Instance.Player);
+      //// Spawn enemies/items/etc
+      //SpawnMonsters(map, rooms, config.MaxMonstersPerRoom);
+      //SpawnItems(map, rooms, config.MaxItemsPerRoom);
+      return null;
+      //return map;
     }
 
-    private static void SpawnMonsters(GameMap map, ItemList<Rectangle> rooms, int maxMonstersPerRoom)
+    private static void SpawnPlayer(RogueLikeMap map, ItemList<Rectangle> rooms)
     {
-      // Generate between zero and the max monsters per room.  Each monster has an 80% chance of being an orc (weaker)
-      // and a 20% chance of being a troll (stronger).
-      foreach (var room in rooms.Items)
-      {
-        int enemies = GlobalRandom.DefaultRNG.NextInt(0, maxMonstersPerRoom + 1);
-        for (int i = 0; i < enemies; i++)
-        {
-          bool isOrc = GlobalRandom.DefaultRNG.PercentageCheck(80f);
-
-          var enemy = isOrc ? MapObjects.Factory.Orc() : MapObjects.Factory.Troll();
-          enemy.Position = GlobalRandom.DefaultRNG.RandomPosition(room, pos => map.WalkabilityView[pos]);
-          map.AddEntity(enemy);
-        }
-      }
+      //// Add player to map at the center of the first room we placed
+      //Core.Instance.Player.Position = rooms.Items[0].Center;
+      //map.AddEntity(Core.Instance.Player);
     }
 
-    private static void SpawnItems(GameMap map, ItemList<Rectangle> rooms, int maxItemsPerRoom)
+    private static void SpawnMonsters(RogueLikeMap map, ItemList<Rectangle> rooms, int maxMonstersPerRoom)
     {
-      // Generate between zero and the max items per room.
-      foreach (var room in rooms.Items)
-      {
-        int items = GlobalRandom.DefaultRNG.NextInt(0, maxItemsPerRoom + 1);
-        for (int i = 0; i < items; i++)
-        {
-          var pctCheck = GlobalRandom.DefaultRNG.NextFloat();
-          var item = pctCheck switch
-          {
-            < 0.7f => MapObjects.Items.Factory.HealthPotion(),
-            < 0.8f => MapObjects.Items.Factory.FireballScroll(),
-            < 0.9f => MapObjects.Items.Factory.ConfusionScroll(),
-            _ => MapObjects.Items.Factory.LightningScroll()
-          };
-          item.Position = GlobalRandom.DefaultRNG.RandomPosition(room, pos => map.WalkabilityView[pos]);
-          map.AddEntity(item);
-        }
-      }
+      //// Generate between zero and the max monsters per room.  Each monster has an 80% chance of being an orc (weaker)
+      //// and a 20% chance of being a troll (stronger).
+      //foreach (var room in rooms.Items)
+      //{
+      //  int enemies = GlobalRandom.DefaultRNG.NextInt(0, maxMonstersPerRoom + 1);
+      //  for (int i = 0; i < enemies; i++)
+      //  {
+      //    bool isOrc = GlobalRandom.DefaultRNG.PercentageCheck(80f);
+
+      //    var enemy = isOrc ? MapObjects.ObjectFactory.Orc() : MapObjects.ObjectFactory.Troll();
+      //    enemy.Position = GlobalRandom.DefaultRNG.RandomPosition(room, pos => map.WalkabilityView[pos]);
+      //    map.AddEntity(enemy);
+      //  }
+      //}
+    }
+
+    private static void SpawnItems(RogueLikeMap map, ItemList<Rectangle> rooms, int maxItemsPerRoom)
+    {
+      //// Generate between zero and the max items per room.
+      //foreach (var room in rooms.Items)
+      //{
+      //  int items = GlobalRandom.DefaultRNG.NextInt(0, maxItemsPerRoom + 1);
+      //  for (int i = 0; i < items; i++)
+      //  {
+      //    var pctCheck = GlobalRandom.DefaultRNG.NextFloat();
+      //    var item = pctCheck switch
+      //    {
+      //      < 0.7f => MapObjects.Items.Factory.HealthPotion(),
+      //      < 0.8f => MapObjects.Items.Factory.FireballScroll(),
+      //      < 0.9f => MapObjects.Items.Factory.ConfusionScroll(),
+      //      _ => MapObjects.Items.Factory.LightningScroll()
+      //    };
+      //    item.Position = GlobalRandom.DefaultRNG.RandomPosition(room, pos => map.WalkabilityView[pos]);
+      //    map.AddEntity(item);
+      //  }
+      //}
     }
   }
 }

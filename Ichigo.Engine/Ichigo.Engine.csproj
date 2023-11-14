@@ -3,8 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MapObjects\Items\**" />
+    <EmbeddedResource Remove="MapObjects\Items\**" />
+    <None Remove="MapObjects\Items\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GoRogue\GoRogue\GoRogue.csproj" />
@@ -12,10 +18,6 @@
     <ProjectReference Include="..\SadConsole\SadConsole.Host.MonoGame\SadConsole.Host.MonoGame.csproj" />
     <ProjectReference Include="..\SadConsole\SadConsole\SadConsole.csproj" />
     <ProjectReference Include="..\TheSadRogue.Integration\TheSadRogue.Integration\TheSadRogue.Integration.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MapObjects\Items\" />
   </ItemGroup>
 
 </Project>

@@ -28,7 +28,7 @@ namespace Ichigo.Engine.MapObjects.Components.AI
       // Move in a random direction
       var direction =
         GoRogue.Random.GlobalRandom.DefaultRNG.RandomElement(AdjacencyRule.EightWay.DirectionsOfNeighborsCache);
-      GameMap.MoveOrBump(Parent, direction);
+      //GameMap.MoveOrBump(Parent, direction);
       _numTurns--;
       // If we've moved the number of turns we were confused for, revert to the old AI
       if (_numTurns <= 0)

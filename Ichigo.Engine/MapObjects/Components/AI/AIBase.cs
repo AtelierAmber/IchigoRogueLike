@@ -11,7 +11,7 @@ using SadRogue.Integration;
 
 namespace Ichigo.Engine.MapObjects.Components.AI
 {
-  internal abstract class AIBase : RogueLikeComponentBase<RogueLikeEntity>
+  public abstract class AIBase : RogueLikeComponentBase<RogueLikeEntity>
   {
     public AIBase()
       : base(false, false, false, false)

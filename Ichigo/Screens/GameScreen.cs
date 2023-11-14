@@ -1,17 +1,11 @@
-﻿using Ichigo.Engine.Maps;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using SadConsole.Components;
 using Ichigo.Engine.MapObjects.Components;
-using Ichigo.Engine.Screens.Menus;
-using Ichigo.Engine.Themes;
 using Ichigo.Engine;
 using Ichigo.Engine.Screens;
-using Ichigo.Engine.Screens.States;
+using Ichigo.Maps;
 using Ichigo.Screens.Menus;
+using Ichigo.Themes;
 
 namespace Ichigo.Screens
 {

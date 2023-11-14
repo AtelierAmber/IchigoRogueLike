@@ -42,7 +42,7 @@ namespace Ichigo.Engine
       if (player.AllComponents.GetFirst<UnitStats>().HP <= 0) return;
 
       // Otherwise, have the enemies take their turns.
-      (player.CurrentMap as GameMap)!.TakeEnemyTurns();
+      //(player.CurrentMap as GameMap)!.TakeEnemyTurns();
     }
   } 
 }

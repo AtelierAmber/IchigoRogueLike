@@ -12,12 +12,12 @@ namespace Ichigo.Screens.States
     /// </summary>
     internal class MainMapState : IchigoState
     {
-        private readonly MainMapKeybindingsComponent _keybindings;
+        private readonly MovementKeybindingsComponent _keybindings;
 
         public MainMapState()
             : base(false, false, false, false)
         {
-            _keybindings = new MainMapKeybindingsComponent();
+            _keybindings = new MovementKeybindingsComponent();
             // Add controls for picking up items and getting to inventory screen.
             _keybindings.SetAction(Keys.G, () => PlayerActionHelper.PlayerTakeAction(e => e.AllComponents.GetFirst<Inventory>().PickUp()));
 
