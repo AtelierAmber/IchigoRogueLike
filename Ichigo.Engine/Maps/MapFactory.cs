@@ -30,8 +30,17 @@ namespace Ichigo.Engine.Maps
   /// The map gen below won't use GoRogue's map generation system for the custom parts, although we could; it simply isn't
   /// necessary for the relatively simple, single type of map we have below.
   /// </remarks>
-  internal static class Factory
+  internal static class MapFactory
   {
+    /// <summary>
+    /// Map layers for rendering/collision.
+    /// </summary>
+    public enum Layer
+    {
+      Terrain = 0,
+      Items,
+      Monsters
+    }
     public static GameMap Dungeon(DungeonGenConfig config)
     {
       // Generate a dungeon maze map

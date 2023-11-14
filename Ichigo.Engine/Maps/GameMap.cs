@@ -19,15 +19,6 @@ namespace Ichigo.Engine.Maps
 {
   public class GameMap : RogueLikeMap
   {
-    /// <summary>
-    /// Map layers for rendering/collision.
-    /// </summary>
-    public enum Layer
-    {
-      Terrain = 0,
-      Items,
-      Monsters
-    }
 
     public GameMap(int width, int height, DefaultRendererParams? defaultRendererParams)
         : base(width, height, defaultRendererParams, Enum.GetValues<Layer>().Length - 1, Distance.Chebyshev)
