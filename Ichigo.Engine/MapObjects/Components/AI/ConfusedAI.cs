@@ -23,7 +23,7 @@ namespace Ichigo.Engine.MapObjects.Components.AI
     public override void TakeTurn()
     {
       if (Parent?.CurrentMap == null) return;
-      if (Parent.AllComponents.GetFirst<UnitStats>().HP <= 0) return;
+      if (Parent.AllComponents.GetFirst<BasicStats>().HP <= 0) return;
 
       // Move in a random direction
       var direction =
@@ -36,7 +36,7 @@ namespace Ichigo.Engine.MapObjects.Components.AI
         var parent = Parent;
         parent.AllComponents.Remove(this);
         parent.AllComponents.Add(_previousAI);
-        Core.Instance.MessageLog.Add(new($"{parent.Name} is no longer confused!"));
+        Core.Instance.MessageLog.Add(new($"{parent.Name} is no longer confused!", MessageColors.StatusEffectAppliedAppearance));
       }
     }
   }

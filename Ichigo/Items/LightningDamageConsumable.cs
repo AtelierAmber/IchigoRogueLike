@@ -29,13 +29,13 @@ namespace Ichigo.Items
 
             // Find target
             var radius = (Radius)consumer.CurrentMap.DistanceMeasurement;
-            Combatant target = null;
+            IchigoCombatant target = null;
             foreach (var pos in radius.PositionsInRadius(consumer.Position, MaxRange))
             {
                 var entity = consumer.CurrentMap.GetEntityAt<RogueLikeEntity>(pos);
                 if (entity != null && entity != consumer)
                 {
-                    target = entity.AllComponents.GetFirstOrDefault<Combatant>();
+                    target = entity.AllComponents.GetFirstOrDefault<IchigoCombatant>();
                     if (target != null) break;
                 }
             }
@@ -49,8 +49,8 @@ namespace Ichigo.Items
 
             // Lightning damage bypasses defense.
             Core.Instance.MessageLog.Add(
-              new($"A lightning bolt zaps the {target.Parent!.Name} with a loud thunder, for {Damage} damage!"));
-            target.Parent.AllComponents.GetFirst<UnitStats>().HP -= Damage;
+              new($"A lightning bolt zaps the {target.Parent!.Name} with a loud thunder, for {Damage} damage!", MessageColors.PlayerAtkAppearance));
+            target.Parent.AllComponents.GetFirst<BasicStats>().HP -= Damage;
 
             return true;
         }

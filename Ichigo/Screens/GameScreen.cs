@@ -55,7 +55,7 @@ namespace Ichigo.Screens
       //CurrentState = new MainMapState(this);
 
       // Add player death handler
-      Core.Instance.Player.AllComponents.GetFirst<UnitStats>().Died += PlayerDeath;
+      Core.Instance.Player.AllComponents.GetFirst<BasicStats>().Died += PlayerDeath;
 
       // Write welcome message
       Core.Instance.MessageLog.Add(new("Hello and welcome, adventurer, to yet another dungeon!", MessageColors.WelcomeTextAppearance));
@@ -68,7 +68,7 @@ namespace Ichigo.Screens
     {
       Core.Instance.MessageLog.Add(new("You have died!", MessageColors.PlayerDiedAppearance));
 
-      Core.Instance.Player.AllComponents.GetFirst<UnitStats>().Died -= PlayerDeath;
+      Core.Instance.Player.AllComponents.GetFirst<BasicStats>().Died -= PlayerDeath;
 
       // Switch to game over screen
       Children.Add(new GameOver());

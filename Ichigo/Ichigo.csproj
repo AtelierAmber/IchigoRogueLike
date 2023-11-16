@@ -38,4 +38,9 @@
     <Folder Include="Locale\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
 </Project>

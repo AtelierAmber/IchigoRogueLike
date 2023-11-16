@@ -19,7 +19,7 @@ namespace Ichigo.Items
 
         private readonly Radius? _radiusShape;
 
-        public Radius RadiusShape => _radiusShape ?? Core.Instance.GameScreen!.Map.DistanceMeasurement;
+        public Radius? RadiusShape => _radiusShape /*?? Core.Instance.GameScreen!.Map.DistanceMeasurement*/;
         public readonly bool AllowTargetNonVisible;
 
         protected AreaTargetConsumable(int radius, Radius? radiusShape, bool allowTargetNonVisible)
@@ -34,8 +34,8 @@ namespace Ichigo.Items
         {
             if (_target != null) return null;
 
-            if (Core.Instance.GameScreen == null)
-                throw new InvalidOperationException("Cannot target an item without a game screen.");
+            //if (Core.Instance.GameScreen == null)
+            //    throw new InvalidOperationException("Cannot target an item without a game screen.");
 
             var targetingState = new TargetAreaState(Core.Instance.GameScreen, Radius, RadiusShape, AllowTargetNonVisible,
               positionSelected: pos =>

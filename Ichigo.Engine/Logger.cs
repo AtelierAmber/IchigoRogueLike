@@ -102,7 +102,7 @@ namespace Ichigo.Engine
     }
 
     // Appears in error
-    public static void Error(string message, Exception? exception = null)
+    public static void Error(string message, Exception exception = null)
     {
       if (!INITIALIZED) InitFiles();
 

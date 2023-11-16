@@ -13,12 +13,12 @@ namespace Ichigo.Engine.Screens.States
   /// </summary>
   /// <param name="SurfacePosition">The look marker's position relative to the surface it's a child of.</param>
   /// <param name="MapPosition">The look marker's position on the map being rendered.</param>
-  internal record struct LookMarkerPosition(Point SurfacePosition, Point MapPosition);
+  public record struct LookMarkerPosition(Point SurfacePosition, Point MapPosition);
 
   /// <summary>
   /// State where the user is looking around and selecting a location on the map.
   /// </summary>
-  internal class SelectMapLocationState : IchigoState
+  public class SelectMapLocationState : IchigoState
   {
     /// <summary>
     /// The surface used to display where the user is looking.

@@ -20,7 +20,7 @@ namespace Ichigo.Engine.Features.Items
     }
     public static IchigoItem Create<ItemType>(string resourceID, string descriptionLoc, Color color, int glyph) where ItemType : IchigoItem
     {
-      ItemType? item = Activator.CreateInstance(typeof(ItemType), new object[] { Items.Count, resourceID, descriptionLoc, color, glyph }) as ItemType;
+      ItemType item = Activator.CreateInstance(typeof(ItemType), new object[] { Items.Count, resourceID, descriptionLoc, color, glyph }) as ItemType;
       if (item == null)
       {
         throw new ItemTypeException(typeof(ItemType));
@@ -45,7 +45,7 @@ namespace Ichigo.Engine.Features.Items
     }
     public static IchigoEntity GenerateItemEntity(IchigoItem item, object[] genArgs = null)
     {
-      IchigoEntity entity = (Activator.CreateInstance(item.EntityType, args: new object?[] { item.ItemColor, item.Glyph, (int)MapFactory.Layer.Items }.Append(genArgs)) as IchigoEntity);
+      IchigoEntity entity = (Activator.CreateInstance(item.EntityType, args: new object[] { item.ItemColor, item.Glyph, (int)MapFactory.Layer.Items }.Append(genArgs)) as IchigoEntity);
       if (entity == null)
       {
         throw new ItemTypeException(item.Name);

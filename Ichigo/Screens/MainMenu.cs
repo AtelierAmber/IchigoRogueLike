@@ -57,7 +57,7 @@ namespace Ichigo.Screens
             Controls.Add(exit);
         }
 
-        private void NewGameOnClick(object? sender, EventArgs e)
+        private void NewGameOnClick(object sender, EventArgs e)
         {
             //// Create player entity
             //Core.Instance.Player = Factory.Player();
@@ -73,17 +73,17 @@ namespace Ichigo.Screens
             //Core.Instance.ChangeScreen(Core.Instance.GameScreen);
         }
 
-        private void LoadGameOnClick(object? sender, EventArgs e)
+        private void LoadGameOnClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
         }
 
-        private void ExitOnClick(object? sender, EventArgs e)
+        private void ExitOnClick(object sender, EventArgs e)
         {
             SadConsole.Game.Instance.MonoGameInstance.Exit();
         }
 
-        private void SettingsOnClick(object? sender, EventArgs e)
+        private void SettingsOnClick(object sender, EventArgs e)
         {
 
         }

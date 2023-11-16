@@ -45,28 +45,6 @@ namespace Ichigo.Engine.MapObjects
     //public static Terrain Wall(Point position)
     //    => new(position, AppearanceDefinitions["Wall"], (int)MapFactory.Layer.Terrain, false, false);
 
-    public static RogueLikeEntity Player()
-    {
-      // Create entity with appropriate attributes
-      var player = new RogueLikeEntity('@', false, layer: (int)MapFactory.Layer.Characters)
-      {
-        Name = "Player"
-      };
-
-      // Add component for updating map's player FOV as they move
-      player.AllComponents.Add(new PlayerFOVController { FOVRadius = 8 });
-
-      player.AllComponents.Add(new UnitStats(30, 0));
-
-      // Player combatant
-      player.AllComponents.Add(new Combatant());
-
-      // Player inventory
-      player.AllComponents.Add(new Inventory(26));
-
-      return player;
-    }
-
     public static RogueLikeEntity Corpse(RogueLikeEntity entity)
         => new((ColoredGlyph)entity.AppearanceSingle.Appearance, layer: (int)MapFactory.Layer.Items)
         {

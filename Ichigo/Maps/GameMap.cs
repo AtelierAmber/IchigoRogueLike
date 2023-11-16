@@ -72,7 +72,7 @@ namespace Ichigo.Maps
     public void TakeEnemyTurns()
     {
       var enemies = Entities.GetLayer((int)MapFactory.Layer.Characters).Items.ToArray();
-      var playerStats = Core.Instance.Player.GoRogueComponents.GetFirst<UnitStats>();
+      var playerStats = Core.Instance.Player.GoRogueComponents.GetFirst<BasicStats>();
       foreach (var enemy in enemies)
       {
         if (playerStats.HP <= 0) break;
@@ -86,7 +86,7 @@ namespace Ichigo.Maps
     {
       if (e.Item != Core.Instance.Player)
       {
-        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<UnitStats>();
+        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<BasicStats>();
         if (stats == null) return;
 
         stats.Died += HostileDeath;
@@ -97,7 +97,7 @@ namespace Ichigo.Maps
     {
       if (e.Item != Core.Instance.Player)
       {
-        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<UnitStats>();
+        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<BasicStats>();
         if (stats == null) return;
 
         stats.Died -= HostileDeath;
@@ -106,7 +106,7 @@ namespace Ichigo.Maps
 
     private static void HostileDeath(object s, EventArgs e)
     {
-      var hostile = ((Combatant)s!).Parent!;
+      var hostile = ((IchigoCombatant)s!).Parent!;
 
       // Display message in log
       Core.Instance.MessageLog.Add(new ColoredString($"The {hostile.Name} dies!",

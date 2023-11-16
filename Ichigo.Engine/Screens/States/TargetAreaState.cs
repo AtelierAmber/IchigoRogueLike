@@ -7,7 +7,7 @@ using SadRogue.Primitives;
 
 namespace Ichigo.Engine.Screens.States
 {
-  internal class TargetAreaState : SelectMapLocationState
+  public class TargetAreaState : SelectMapLocationState
   {
     private readonly bool _allowTargetNonVisible;
 
@@ -25,7 +25,7 @@ namespace Ichigo.Engine.Screens.States
       if (!_allowTargetNonVisible && !gameMap.PlayerFOV.BooleanResultView[LookMarkerPosition.MapPosition])
       {
         Core.Instance.MessageLog.Add(
-                           new("You cannot target an area that you cannot see."));
+                           new("You cannot target an area that you cannot see.", MessageColors.ImpossibleActionAppearance));
         return false;
       }
 

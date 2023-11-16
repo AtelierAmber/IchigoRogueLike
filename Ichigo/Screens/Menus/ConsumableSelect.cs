@@ -66,7 +66,7 @@ namespace Ichigo.Screens.Menus
             Hide();
 
             var item = ((ListItem)e.Item).Item;
-            PlayerActionHelper.PlayerTakeAction(_ => _playerInventory.Consume(item));
+            //PlayerActionHelper.PlayerTakeAction(_ => _playerInventory.Consume(item));
         }
     }
 }

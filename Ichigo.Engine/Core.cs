@@ -1,6 +1,5 @@
 ﻿
 using Ichigo.Engine.Screens;
-using SadConsole;
 using SadConsole.Configuration;
 using SadRogue.Integration;
 
@@ -22,19 +21,18 @@ namespace Ichigo.Engine
       }
     }
 
-    private static int GAME_WIDTH = 80, GAME_HEIGHT = 50;
+    private int WINDOW_WIDTH = 80, WINDOW_HEIGHT = 50;
 
-    public static int WindowWidth => GameHost.Instance.ScreenCellsX;
+    public static int WindowWidth => SadConsole.GameHost.Instance.ScreenCellsX;
 
-    public static int WindowHeight => GameHost.Instance.ScreenCellsY;
+    public static int WindowHeight => SadConsole.GameHost.Instance.ScreenCellsY;
 
-    public static void Start<TStartingScreen>(int width, int height, bool setStartAsGame = false,
-      string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IchigoScreen, new()
+    public static void Start<TStartingScreen>(int width, int height, string title,
+      string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : SadConsole.IScreenSurface, new()
     {
       if (instance != null) return;
-      GAME_WIDTH = width; GAME_HEIGHT = height;
       instance = new Core();
-      instance.InitializeAndRun<TStartingScreen>();
+      instance.InitializeAndRun<TStartingScreen>(width, height, title);
     }
 
     public ActionController ActionController { get; private set; }
@@ -45,15 +43,17 @@ namespace Ichigo.Engine
     // Null override because it's initialized via new-game/load game
     public RogueLikeEntity Player = null!;
 
-    public void InitializeAndRun<TStartingScreen>(bool setStartAsGame = false, string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : IchigoScreen, new()
+    public void InitializeAndRun<TStartingScreen>(int width, int height, string title, string defaultFont = "Engine/Fonts/Cheepicus12.font")
+      where TStartingScreen : SadConsole.IScreenSurface, new()
     {
-      Settings.WindowTitle = "Ichigo Core";
+      SadConsole.Settings.WindowTitle = title;
+      WINDOW_WIDTH = width; WINDOW_HEIGHT = height;
       try
       {
         ActionController = new ActionController();
 
         Builder startup = new Builder()
-            .SetScreenSize(GAME_WIDTH, GAME_HEIGHT)
+            .SetScreenSize(WINDOW_WIDTH, WINDOW_HEIGHT)
             .SetStartingScreen<TStartingScreen>()
             .IsStartingScreenFocused(false)
             .ConfigureFonts(true)
@@ -62,12 +62,12 @@ namespace Ichigo.Engine
 
         SadConsole.Game.Create(startup);
         SadConsole.Game.Instance.Started += Init;
-        (SadConsole.Game.Instance.Screen as IchigoScreen).Initialize();
+        (SadConsole.Game.Instance.Screen as IchigoScreen)?.Initialize();
         SadConsole.Game.Instance.Run();
       }
       catch (Exception e)
       {
-        Logger.Error("Exception caught in Game.Instance.Run()", e);
+        Logger.Error("Exception caught in Game.Instance.Run() " + e.Message, e);
       }
       finally
       {
@@ -75,26 +75,37 @@ namespace Ichigo.Engine
       }
     }
 
-    private void Init(object sender, GameHost host)
+    private void Init(object sender, SadConsole.GameHost host)
     {
       MessageLog = new MessageLog(1000);
     }
 
-    public void ChangeScreen<T>(T newScreen) where T : IchigoScreen
+    public bool AddScreenToRoot<T>(T newScreen) where T : SadConsole.IScreenSurface
     {
-      newScreen.Initialize();
-      CurrentScreen().Uninitialize();
-      GameHost.Instance.Screen = newScreen;
+      (newScreen as IchigoScreen)?.Initialize();
+      if (ActiveRootScreen() == null)
+      {
+        return false;
+      }
+      ActiveRootScreen().Children.Add(newScreen);
+      return true;
     }
 
-    public IchigoScreen CurrentScreen()
+    public void ChangeRootScreen<T>(T newScreen) where T : SadConsole.IScreenSurface
     {
-      return CurrentScreen<IchigoScreen>();
+      (newScreen as IchigoScreen)?.Initialize();
+      ActiveRootScreen<IchigoScreen>()?.Uninitialize();
+      SadConsole.GameHost.Instance.Screen = newScreen;
     }
 
-    public CastTo CurrentScreen<CastTo>()
+    public SadConsole.IScreenSurface ActiveRootScreen()
     {
-      return (CastTo)GameHost.Instance.Screen;
+      return ActiveRootScreen<SadConsole.IScreenSurface>();
+    }
+
+    public CastTo ActiveRootScreen<CastTo>()
+    {
+      return (CastTo)SadConsole.GameHost.Instance.Screen;
     }
   }
 }

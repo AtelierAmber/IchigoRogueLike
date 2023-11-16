@@ -28,7 +28,7 @@ namespace Ichigo.Items
         {
             var isPlayer = consumer == Core.Instance.Player;
 
-            var stats = consumer.AllComponents.GetFirst<UnitStats>();
+            var stats = consumer.AllComponents.GetFirst<BasicStats>();
             var amountRecovered = stats.Heal(Amount);
             if (amountRecovered > 0)
             {

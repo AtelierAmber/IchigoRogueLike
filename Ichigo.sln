@@ -20,7 +20,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SadConsole.Extended", "SadC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SadConsole", "SadConsole\SadConsole\SadConsole.csproj", "{654C9091-AEC2-4252-8F2B-ADA2AEB6634C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ichigo.Engine", "Ichigo.Engine\Ichigo.Engine.csproj", "{D4D5246D-3682-44A7-8213-336F29ECCA9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ichigo.Engine", "Ichigo.Engine\Ichigo.Engine.csproj", "{D4D5246D-3682-44A7-8213-336F29ECCA9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE1D1371-68C9-4C08-AFC4-6A56EEE702F3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
