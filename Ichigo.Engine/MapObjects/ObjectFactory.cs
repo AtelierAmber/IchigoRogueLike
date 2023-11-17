@@ -40,11 +40,11 @@ namespace Ichigo.Engine.MapObjects
         },
     };
 
-    //public static Terrain Floor(Point position)
-    //    => new(position, AppearanceDefinitions["Floor"], (int)MapFactory.Layer.Terrain);
+    public static Terrain Floor(Point position)
+        => new(position, AppearanceDefinitions["Floor"], (int)MapFactory.Layer.Terrain);
 
-    //public static Terrain Wall(Point position)
-    //    => new(position, AppearanceDefinitions["Wall"], (int)MapFactory.Layer.Terrain, false, false);
+    public static Terrain Wall(Point position)
+        => new(position, AppearanceDefinitions["Wall"], (int)MapFactory.Layer.Terrain, false, false);
 
     public static RogueLikeEntity Corpse([NotNull] RogueLikeEntity entity)
         => new((entity.AppearanceSingle == null) ? new ColoredGlyph(Color.White, Color.Black, '?') : (ColoredGlyph)entity.AppearanceSingle.Appearance, layer: (int)MapFactory.Layer.Items)

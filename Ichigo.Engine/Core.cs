@@ -100,9 +100,9 @@ namespace Ichigo.Engine
       return ActiveRootScreen<SadConsole.IScreenSurface>();
     }
 
-    public CastTo ActiveRootScreen<CastTo>()
+    public TCastTo ActiveRootScreen<TCastTo>() where TCastTo: class, SadConsole.IScreenSurface
     {
-      return (CastTo)SadConsole.GameHost.Instance.Screen;
+      return SadConsole.GameHost.Instance.Screen as TCastTo;
     }
   }
 }

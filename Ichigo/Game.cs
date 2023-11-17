@@ -9,7 +9,7 @@ namespace Ichigo {
     private const int StartingWidth = 80;
     private const int StartingHeight = 50;
 
-    public static PlayerEntity Player { get; private set; }
+    public static PlayerEntity Player { get; set; }
 
     private static void Main()
     {

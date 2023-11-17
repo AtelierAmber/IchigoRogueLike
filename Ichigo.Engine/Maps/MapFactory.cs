@@ -42,35 +42,34 @@ namespace Ichigo.Engine.Maps
       Items,
       Characters
     }
-    public static RogueLikeMap Dungeon(DungeonGenConfig config)
+    public static IchigoMap Dungeon(DungeonGenConfig config)
     {
-      //// Generate a dungeon maze map
-      //var generator = new Generator(config.Width, config.Height)
-      //    .ConfigAndGenerateSafe(gen =>
-      //    {
-      //      gen.AddSteps(DefaultAlgorithms.DungeonMazeMapSteps(minRooms: config.MinRooms, maxRooms: config.MaxRooms,
-      //            roomMinSize: config.RoomMinSize, roomMaxSize: config.RoomMaxSize, saveDeadEndChance: 0));
-      //    });
+      // Generate a dungeon maze map
+      var generator = new Generator(config.Width, config.Height)
+          .ConfigAndGenerateSafe(gen =>
+          {
+            gen.AddSteps(DefaultAlgorithms.DungeonMazeMapSteps(minRooms: config.MinRooms, maxRooms: config.MaxRooms,
+                  roomMinSize: config.RoomMinSize, roomMaxSize: config.RoomMaxSize, saveDeadEndChance: 0));
+          });
 
-      //// Extract components from the map GoRogue generated which hold basic information about the map
-      //var generatedMap = generator.Context.GetFirst<ISettableGridView<bool>>("WallFloor");
-      //var rooms = generator.Context.GetFirst<ItemList<Rectangle>>("Rooms");
+      // Extract components from the map GoRogue generated which hold basic information about the map
+      var generatedMap = generator.Context.GetFirst<ISettableGridView<bool>>("WallFloor");
+      var rooms = generator.Context.GetFirst<ItemList<Rectangle>>("Rooms");
 
-      //// Create actual integration library map with a proper component for the character "memory" system.
-      //var map = new GameMap(generator.Context.Width, generator.Context.Height, null);
-      //map.AllComponents.Add(new TerrainFOVVisibilityHandler());
+      // Create actual integration library map with a proper component for the character "memory" system.
+      var map = new IchigoMap(generator.Context.Width, generator.Context.Height, null, 1, Distance.Chebyshev);
+      map.AllComponents.Add(new TerrainFOVVisibilityHandler());
 
-      //// Translate GoRogue's terrain data into actual integration library objects.
-      //map.ApplyTerrainOverlay(generatedMap, (pos, val) => val ? MapObjects.ObjectFactory.Floor(pos) : MapObjects.ObjectFactory.Wall(pos));
+      // Translate GoRogue's terrain data into actual integration library objects.
+      map.ApplyTerrainOverlay(generatedMap, (pos, val) => val ? MapObjects.ObjectFactory.Floor(pos) : MapObjects.ObjectFactory.Wall(pos));
 
-      //// Spawn player
-      //SpawnPlayer(map, rooms);
+      // Spawn player
+      SpawnPlayer(map, rooms);
 
-      //// Spawn enemies/items/etc
-      //SpawnMonsters(map, rooms, config.MaxMonstersPerRoom);
-      //SpawnItems(map, rooms, config.MaxItemsPerRoom);
-      return null;
-      //return map;
+      // Spawn enemies/items/etc
+      SpawnMonsters(map, rooms, config.MaxMonstersPerRoom);
+      SpawnItems(map, rooms, config.MaxItemsPerRoom);
+      return map;
     }
 
     private static void SpawnPlayer(RogueLikeMap map, ItemList<Rectangle> rooms)

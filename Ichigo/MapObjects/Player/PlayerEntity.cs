@@ -8,7 +8,7 @@ namespace Ichigo.MapObjects.Player
 {
   public class PlayerEntity : IchigoEntity, IControlable
   {
-    PlayerEntity()
+    public PlayerEntity()
       : base(Color.White, '@', false, false, (int)MapFactory.Layer.Characters)
     {
       AddComponent(new Inventory(10));

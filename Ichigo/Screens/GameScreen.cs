@@ -3,7 +3,6 @@ using SadConsole.Components;
 using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine;
 using Ichigo.Engine.Screens;
-using Ichigo.Maps;
 using Ichigo.Screens.Menus;
 using Ichigo.Engine.Maps;
 using SadConsole;
@@ -13,7 +12,7 @@ namespace Ichigo.Screens
 {
     public class GameScreen : IchigoScreen
   {
-    public GameMap Map;
+    public IchigoMap Map;
     public MessageLogPanel MessagePanel;
     public StatusPanel StatusPanel;
 
@@ -22,7 +21,7 @@ namespace Ichigo.Screens
     private const int StatusBarWidth = 25;
     private const int BottomPanelHeight = 5;
 
-    public GameScreen(GameMap map)
+    public GameScreen(IchigoMap map)
     {
       // Record the map we're rendering
       Map = map;

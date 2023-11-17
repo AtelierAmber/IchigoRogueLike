@@ -7,7 +7,7 @@ namespace Ichigo.MapObjects.Components
   {
     private const int Priority = 0;
 
-    public CharacterCombatStats(float maxHP, float maxEP) : base(false, false, false, false, Priority) { }
+    public CharacterCombatStats(float maxEP) : base(false, false, false, false, Priority) { }
     public void SetDefense(float slash, float blunt, float pierce)
     {
       SlashDefense = slash;
