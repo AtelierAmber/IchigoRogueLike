@@ -1,6 +1,5 @@
 ﻿using SadConsole.UI.Controls;
 using SadRogue.Integration;
-using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine.Features.Items;
 using Ichigo.Engine;
 
@@ -32,7 +31,7 @@ namespace Ichigo.Screens.Menus
         {
             Title = "Select an item to consume:";
 
-            _playerInventory = Core.Instance.Player.AllComponents.GetFirst<Inventory>();
+            _playerInventory = Game.Player.AllComponents.GetFirst<Inventory>();
             if (_playerInventory.Items.Count == 0)
             {
                 PrintTextAtCenter("There are no items in your inventory.");
@@ -45,11 +44,11 @@ namespace Ichigo.Screens.Menus
 
             foreach (var item in _playerInventory.Items)
             {
-                var consumable = item.AllComponents.GetFirstOrDefault<IConsumable>();
-                if (consumable == null) continue;
+                //var consumable = item.AllComponents.GetFirstOrDefault<IConsumable>();
+                //if (consumable == null) continue;
 
                 foundItem = true;
-                list.Items.Add(new ListItem { Item = item });
+                //list.Items.Add(new ListItem { Item = item });
             }
 
             if (!foundItem)

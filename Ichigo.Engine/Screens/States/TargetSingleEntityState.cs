@@ -1,5 +1,6 @@
 ﻿using System;
 using Ichigo.Engine;
+using Ichigo.Engine.Features.Entities;
 using Ichigo.Engine.Screens;
 using SadConsole;
 using SadRogue.Integration;
@@ -12,11 +13,11 @@ namespace Ichigo.Engine.Screens.States
         private readonly bool _allowTargetSelf;
         private readonly bool _allowTargetNonVisible;
 
-        public TargetSingleEntityState(IchigoScreen gameScreen, bool allowTargetSelf, bool allowTargetNonVisible,
+        public TargetSingleEntityState(IchigoEntity center, IchigoScreen gameScreen, bool allowTargetSelf, bool allowTargetNonVisible,
             Action<LookMarkerPosition> positionChanged = null,
             Action<LookMarkerPosition> positionSelected = null,
             Func<Point> getLookMarkerSurfaceStartingLocation = null)
-            : base(gameScreen, positionChanged: positionChanged, positionSelected: positionSelected, getLookMarkerSurfaceStartingLocation: getLookMarkerSurfaceStartingLocation)
+            : base(center, gameScreen, positionChanged: positionChanged, positionSelected: positionSelected, getLookMarkerSurfaceStartingLocation: getLookMarkerSurfaceStartingLocation)
         {
             _allowTargetSelf = allowTargetSelf;
             _allowTargetNonVisible = allowTargetNonVisible;
@@ -32,7 +33,7 @@ namespace Ichigo.Engine.Screens.States
                 return false;
             }
 
-            if (!_allowTargetSelf && target == Core.Instance.Player)
+            if (!_allowTargetSelf && target == centeredEntity)
             {
                 Core.Instance.MessageLog.Add(
                         new("You cannot target yourself.", MessageColors.ImpossibleActionAppearance));

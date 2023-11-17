@@ -3,7 +3,7 @@ using SadRogue.Integration.Components;
 
 namespace Ichigo.Engine.MapObjects.Components
 {
-  public class BasicStats : RogueLikeComponentBase<RogueLikeEntity>
+  public class HealthComponent : RogueLikeComponentBase<RogueLikeEntity>
   {
     private const int Priority = 0;
 
@@ -27,7 +27,7 @@ namespace Ichigo.Engine.MapObjects.Components
     public event EventHandler HPChanged;
     public event EventHandler HPDepleted;
 
-    public BasicStats(float maxHP) : base(false, false, false, false, Priority)
+    public HealthComponent(float maxHP) : base(false, false, false, false, Priority)
     {
       hp = maxHP;
     }

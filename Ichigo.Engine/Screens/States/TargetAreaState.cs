@@ -1,5 +1,6 @@
 ﻿using System;
 using Ichigo.Engine;
+using Ichigo.Engine.Features.Entities;
 using Ichigo.Engine.Screens;
 using SadConsole;
 using SadRogue.Primitives;
@@ -11,11 +12,11 @@ namespace Ichigo.Engine.Screens.States
   {
     private readonly bool _allowTargetNonVisible;
 
-    public TargetAreaState(IchigoScreen gameScreen, int radius, Radius radiusShape, bool allowTargetNonVisible,
+    public TargetAreaState(IchigoEntity center, IchigoScreen gameScreen, int radius, Radius? radiusShape, bool allowTargetNonVisible,
         Action<LookMarkerPosition> positionChanged = null,
         Action<LookMarkerPosition> positionSelected = null,
         Func<Point> getLookMarkerSurfaceStartingLocation = null)
-        : base(gameScreen, radius, radiusShape, positionChanged, positionSelected, getLookMarkerSurfaceStartingLocation)
+        : base(center, gameScreen, radius, radiusShape, positionChanged, positionSelected, getLookMarkerSurfaceStartingLocation)
     {
       _allowTargetNonVisible = allowTargetNonVisible;
     }

@@ -23,7 +23,7 @@ namespace Ichigo.Engine.MapObjects.Components.AI
     public override void TakeTurn()
     {
       if (Parent?.CurrentMap == null) return;
-      if (Parent.AllComponents.GetFirst<BasicStats>().HP <= 0) return;
+      if (Parent.AllComponents.GetFirst<HealthComponent>().HP <= 0) return;
 
       // Move in a random direction
       var direction =

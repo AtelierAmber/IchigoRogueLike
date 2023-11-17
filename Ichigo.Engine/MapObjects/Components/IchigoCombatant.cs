@@ -12,19 +12,14 @@ namespace Ichigo.Engine.MapObjects.Components
 {
   public abstract class IchigoCombatant : RogueLikeComponentBase<RogueLikeEntity>, IBumpable
   {
-
-    private BasicStats stats = null;
-
-    public IchigoCombatant()
-        : base(false, false, false, false)
-    {
-    }
+    protected IchigoCombatant()
+        : base(false, false, false, false) { }
 
     public abstract void DamageTarget(IchigoCombatant target);
 
     public bool OnBumped(RogueLikeEntity source)
     {
-      var combatant = (source as IchigoEntity).GetComponent<IchigoCombatant>();
+      var combatant = (source as IchigoEntity)?.GetComponent<IchigoCombatant>();
       if (combatant == null) return false;
 
       combatant.DamageTarget(this);

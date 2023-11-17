@@ -26,6 +26,8 @@ namespace Ichigo.Engine
 
     private static void InitFiles()
     {
+      if (INITIALIZED) return;
+      Directory.CreateDirectory(LOG_DIRECTORY);
       string[] files = Directory.GetFiles(LOG_DIRECTORY, "Log*");
       if (files.Length >= SAVED_FILE_COUNT)
       {
@@ -57,7 +59,7 @@ namespace Ichigo.Engine
           File.Move(files[i], "Error_" + (i+1) + ".log");
         }
       }
-      File.Create(ERROR_FILE_PATH);
+      File.Create(ERROR_FILE_PATH).Dispose();
       ERROR_FILE = new StreamWriter(ERROR_FILE_PATH, false, Encoding.Default);
       ERROR_FILE.WriteLine("Error logging started at " + DateTime.Now);
       ERROR_FILE.Flush();

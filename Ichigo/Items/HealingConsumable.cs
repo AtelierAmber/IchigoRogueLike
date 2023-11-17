@@ -26,9 +26,9 @@ namespace Ichigo.Items
 
         public bool Consume(RogueLikeEntity consumer)
         {
-            var isPlayer = consumer == Core.Instance.Player;
+            var isPlayer = consumer == Game.Player;
 
-            var stats = consumer.AllComponents.GetFirst<BasicStats>();
+            var stats = consumer.AllComponents.GetFirst<HealthComponent>();
             var amountRecovered = stats.Heal(Amount);
             if (amountRecovered > 0)
             {

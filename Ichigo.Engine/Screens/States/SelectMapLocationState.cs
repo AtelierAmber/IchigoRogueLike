@@ -1,4 +1,5 @@
-﻿using SadConsole;
+﻿using Ichigo.Engine.Features.Entities;
+using SadConsole;
 using Ichigo.Engine.Screens.Components;
 using SadConsole.Input;
 using SadRogue.Integration;
@@ -59,7 +60,9 @@ namespace Ichigo.Engine.Screens.States
 
     protected IchigoMap gameMap;
 
-    public SelectMapLocationState(IchigoScreen gameScreen,
+    protected IchigoEntity centeredEntity;
+
+    public SelectMapLocationState(IchigoEntity centered, IchigoScreen gameScreen,
         int radius = 0,
         Radius? radiusShape = null,
         Action<LookMarkerPosition> positionChanged = null,
@@ -67,6 +70,7 @@ namespace Ichigo.Engine.Screens.States
         Func<Point> getLookMarkerSurfaceStartingLocation = null)
         : base(false, false, true, false)
     {
+      centeredEntity = centered;
       gameMap = gameScreen.GetMap();
       if (gameMap == null)
       {
@@ -108,7 +112,7 @@ namespace Ichigo.Engine.Screens.States
       Parent.SadComponents.Add(_keybindings);
 
       // Update the look marker's position to the starting location
-      SetPositionBasedOnCenter(_getLookMarkerSurfaceStartingLocation?.Invoke() ?? Core.Instance.Player.Position - ((IScreenSurface)Parent).Surface.ViewPosition);
+      SetPositionBasedOnCenter(_getLookMarkerSurfaceStartingLocation?.Invoke() ?? centeredEntity.Position - ((IScreenSurface)Parent).Surface.ViewPosition);
     }
 
     public override void OnExit()

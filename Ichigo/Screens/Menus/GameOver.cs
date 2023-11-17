@@ -45,9 +45,7 @@ namespace Ichigo.Screens.Menus
         {
             Hide();
 
-            Core.Instance.GameScreen = null;
-
-            //GameHost.Instance.Screen = new MainMenu();
+            Core.Instance.ChangeRootScreen(new MainMenu());
         }
 
         private void ExitOnClick(object sender, EventArgs e)

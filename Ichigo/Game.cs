@@ -1,4 +1,5 @@
 ﻿using Ichigo.Engine;
+using Ichigo.MapObjects.Player;
 using Ichigo.Screens;
 
 namespace Ichigo {
@@ -8,10 +9,11 @@ namespace Ichigo {
     private const int StartingWidth = 80;
     private const int StartingHeight = 50;
 
+    public static PlayerEntity Player { get; private set; }
 
     private static void Main()
     {
-      Core.Start<MainMenu>(StartingWidth, StartingHeight);
+      Core.Start<MainMenu>(StartingWidth, StartingHeight, "Title");
     }
   }
 }

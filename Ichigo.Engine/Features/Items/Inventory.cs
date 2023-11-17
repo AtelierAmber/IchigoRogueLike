@@ -1,30 +1,31 @@
 ﻿using SadRogue.Integration;
 using SadRogue.Integration.Components;
-using Ichigo.Engine.Features.Items;
 
 /// <summary>
 /// Component representing an inventory which can hold a given number of items.
 /// </summary>
 
-namespace Ichigo.Engine.MapObjects.Components
+namespace Ichigo.Engine.Features.Items
 {
   public class Inventory : RogueLikeComponentBase<RogueLikeEntity>
   {
     public int Capacity { get; }
 
-    public readonly List<RogueLikeEntity> Items;
+    public readonly List<IchigoItemStack> Items;
+
+    public event Action<IchigoItemStack> OnItemDropped; 
 
     public Inventory(int capacity)
         : base(false, false, false, false)
     {
       Capacity = capacity;
-      Items = new List<RogueLikeEntity>(capacity);
+      Items = new List<IchigoItemStack>(capacity);
     }
 
     /// <summary>
     /// Drops the given item from this inventory.
     /// </summary>
-    public void Drop(RogueLikeEntity item)
+    public void Drop(IchigoItemStack item)
     {
       if (Parent == null)
         throw new InvalidOperationException(
@@ -36,13 +37,11 @@ namespace Ichigo.Engine.MapObjects.Components
       if (!Items.Remove(item))
         throw new ArgumentException("Tried to drop an item from an inventory it was not a part of.", nameof(item));
 
-      item.Position = Parent.Position;
-      Parent.CurrentMap.AddEntity(item);
+      // TODO
+      //item.Position = Parent.Position;
+      //Parent.CurrentMap.AddEntity(item);
 
-      if (Parent == Core.Instance.Player)
-      {
-        //Core.Instance.MessageLog.Add(new($"You dropped the {item.Name}.", MessageColors.ItemDroppedAppearance));
-      }
+      OnItemDropped?.Invoke(item);
     }
 
     /// <summary>
@@ -58,7 +57,7 @@ namespace Ichigo.Engine.MapObjects.Components
       if (Parent.CurrentMap == null)
         throw new InvalidOperationException("Entity must be part of a map to pick up items.");
 
-      var isPlayer = Parent == Core.Instance.Player;
+      //var isPlayer = Parent == Core.Instance.Player;
 
       var inventory = Parent.AllComponents.GetFirst<Inventory>();
       foreach (var item in Parent.CurrentMap.GetEntitiesAt<RogueLikeEntity>(Parent.Position))
@@ -67,29 +66,29 @@ namespace Ichigo.Engine.MapObjects.Components
 
         if (inventory.Items.Count >= inventory.Capacity)
         {
-          if (isPlayer)
-          {
-            // Core.Instance.MessageLog.Add(new("Your inventory is full.", MessageColors.ImpossibleActionAppearance));
-          }
+          //if (isPlayer)
+          //{
+          //  // Core.Instance.MessageLog.Add(new("Your inventory is full.", MessageColors.ImpossibleActionAppearance));
+          //}
 
           return false;
         }
 
         item.CurrentMap!.RemoveEntity(item);
-        inventory.Items.Add(item);
+        //inventory.Items.Add(item);
 
-        if (isPlayer)
-        {
-          //Core.Instance.MessageLog.Add(new($"You picked up the {item.Name}.", MessageColors.ItemPickedUpAppearance));
-        }
+        //if (isPlayer)
+        //{
+        //  //Core.Instance.MessageLog.Add(new($"You picked up the {item.Name}.", MessageColors.ItemPickedUpAppearance));
+        //}
 
         return true;
       }
 
-      if (isPlayer)
-      {
-        //Core.Instance.MessageLog.Add(new("There is nothing here to pick up.", MessageColors.ImpossibleActionAppearance));
-      }
+      //if (isPlayer)
+      //{
+      //  //Core.Instance.MessageLog.Add(new("There is nothing here to pick up.", MessageColors.ImpossibleActionAppearance));
+      //}
 
       return false;
     }
@@ -97,25 +96,25 @@ namespace Ichigo.Engine.MapObjects.Components
     /// <summary>
     /// Causes the parent to consume the given consumable item.  The given entity must have some component implementing IConsumable.
     /// </summary>
-    public bool Consume(RogueLikeEntity item)
+    public bool Consume(IchigoItemStack item)
     {
       if (Parent == null)
         throw new InvalidOperationException("Cannot consume item from an inventory not attached to an object.");
-      var consumable = item.AllComponents.GetFirst<IConsumable>();
+      //var consumable = item.AllComponents.GetFirst<IConsumable>();
 
       int idx = Items.FindIndex(i => i == item);
       if (idx == -1)
         throw new ArgumentException("Tried to consume a consumable that was not in the inventory.");
 
-      var stateHandler = consumable.GetStateHandler(Parent);
-      if (stateHandler != null)
-      {
-        //Core.Instance.GameScreen!.CurrentState = stateHandler;
-        return false; // We haven't consumed the item, so we'll return false.
-      }
+      //var stateHandler = consumable.GetStateHandler(Parent);
+      //if (stateHandler != null)
+      //{
+      //  //Core.Instance.GameScreen!.CurrentState = stateHandler;
+      //  return false; // We haven't consumed the item, so we'll return false.
+      //}
 
-      bool result = consumable.Consume(Parent);
-      if (!result) return false;
+      //bool result = consumable.Consume(Parent);
+      //if (!result) return false;
 
       Items.RemoveAt(idx);
       return true;

@@ -18,24 +18,24 @@ namespace Ichigo.Items
 
         protected override bool OnUse(Point target)
         {
-            bool hitSomething = false;
-            foreach (var pos in RadiusShape?.PositionsInRadius(target, Radius,
-                       Core.Instance.GameScreen!.Map.DefaultRenderer!.Surface.View))
-            {
-                foreach (var entity in Core.Instance.GameScreen.Map.GetEntitiesAt<RogueLikeEntity>(pos))
-                {
-                    var stats = entity.AllComponents.GetFirstOrDefault<BasicStats>();
-                    if (stats == null) continue;
+            //bool hitSomething = false;
+            //foreach (var pos in RadiusShape?.PositionsInRadius(target, Radius,
+            //           Core.Instance.GameScreen!.Map.DefaultRenderer!.Surface.View))
+            //{
+            //    foreach (var entity in Core.Instance.GameScreen.Map.GetEntitiesAt<RogueLikeEntity>(pos))
+            //    {
+            //        var stats = entity.AllComponents.GetFirstOrDefault<HealthComponent>();
+            //        if (stats == null) continue;
 
-                    Core.Instance.MessageLog.Add(
-                      new($"The {entity.Name} is engulfed in a fiery explosion, taking {Damage} damage!", MessageColors.PlayerAtkAppearance));
-                    stats.HP -= Damage;
-                    hitSomething = true;
-                }
-            }
+            //        Core.Instance.MessageLog.Add(
+            //          new($"The {entity.Name} is engulfed in a fiery explosion, taking {Damage} damage!", MessageColors.PlayerAtkAppearance));
+            //        stats.HP -= Damage;
+            //        hitSomething = true;
+            //    }
+            //}
 
-            if (!hitSomething)
-                Core.Instance.MessageLog.Add(new("A fireball explodes but doesn't hit anything!", MessageColors.PlayerAtkAppearance));
+            //if (!hitSomething)
+            //    Core.Instance.MessageLog.Add(new("A fireball explodes but doesn't hit anything!", MessageColors.PlayerAtkAppearance));
 
             return true;
         }

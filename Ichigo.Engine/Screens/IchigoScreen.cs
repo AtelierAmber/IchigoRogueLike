@@ -6,11 +6,11 @@ namespace Ichigo.Engine.Screens
 {
   public abstract class IchigoScreen : ScreenObject
   {
-    private IchigoStateMachine stateMachine;
+    public IchigoStateMachine StateMachine { get; private set; }
 
     public IchigoScreen()
     {
-      stateMachine = new IchigoStateMachine(this);
+      StateMachine = new IchigoStateMachine(this);
     }
 
     public abstract void Initialize();

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Ichigo.Engine.Features.Entities;
 using SadRogue.Primitives;
 using Ichigo.Engine.Maps;
 
@@ -15,20 +16,27 @@ namespace Ichigo.Engine.MapObjects.Components.AI
 {
   public class BasicHostileAI : AIBase
   {
-    private Point _lastPlayerPosition = Point.None;
+    private Point lastPlayerPosition = Point.None;
+
+    private readonly IchigoEntity targetEntity;
+
+    public BasicHostileAI(IchigoEntity target)
+    {
+      targetEntity = target;
+    }
 
     public override void TakeTurn()
     {
       if (Parent?.CurrentMap == null) return;
-      if (Parent.AllComponents.GetFirst<BasicStats>().HP <= 0) return;
+      if (Parent.AllComponents.GetFirst<HealthComponent>().HP <= 0) return;
 
       // Path to the player if they're visible; otherwise, move toward the last known position of the player (if any)
       var moveToPosition = Parent.CurrentMap.PlayerFOV.CurrentFOV.Contains(Parent.Position)
-        ? Core.Instance.Player.Position
-        : _lastPlayerPosition;
+        ? targetEntity.Position
+        : lastPlayerPosition;
       if (moveToPosition == Point.None || Parent.Position == moveToPosition) return;
 
-      _lastPlayerPosition = moveToPosition; // Record the last known position of the player
+      lastPlayerPosition = moveToPosition; // Record the last known position of the player
 
       var path = Parent.CurrentMap.AStar.ShortestPath(Parent.Position, moveToPosition);
       if (path == null) return;

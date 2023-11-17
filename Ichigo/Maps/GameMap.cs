@@ -19,7 +19,7 @@ using SadRogue.Primitives.SpatialMaps;
 
 namespace Ichigo.Maps
 {
-  public class GameMap : RogueLikeMap
+  public class GameMap : IchigoMap
   {
 
     public GameMap(int width, int height, DefaultRendererParams defaultRendererParams)
@@ -59,7 +59,7 @@ namespace Ichigo.Maps
           if (bumpable.OnBumped(entity))
             return true;
 
-      if (entity == Core.Instance.Player)
+      if (entity == Game.Player)
         Core.Instance.MessageLog.Add(new("That way is blocked.", MessageColors.ImpossibleActionAppearance));
 
       return false;
@@ -72,7 +72,7 @@ namespace Ichigo.Maps
     public void TakeEnemyTurns()
     {
       var enemies = Entities.GetLayer((int)MapFactory.Layer.Characters).Items.ToArray();
-      var playerStats = Core.Instance.Player.GoRogueComponents.GetFirst<BasicStats>();
+      var playerStats = Game.Player.GoRogueComponents.GetFirst<HealthComponent>();
       foreach (var enemy in enemies)
       {
         if (playerStats.HP <= 0) break;
@@ -84,23 +84,23 @@ namespace Ichigo.Maps
 
     private static void EntitiesOnItemAdded(object sender, ItemEventArgs<IGameObject> e)
     {
-      if (e.Item != Core.Instance.Player)
+      if (e.Item != Game.Player)
       {
-        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<BasicStats>();
-        if (stats == null) return;
+        var health = e.Item.GoRogueComponents.GetFirstOrDefault<HealthComponent>();
+        if (health == null) return;
 
-        stats.Died += HostileDeath;
+        health.HPDepleted += HostileDeath;
       }
     }
 
     private static void EntitiesOnItemRemoved(object sender, ItemEventArgs<IGameObject> e)
     {
-      if (e.Item != Core.Instance.Player)
+      if (e.Item != Game.Player)
       {
-        var stats = e.Item.GoRogueComponents.GetFirstOrDefault<BasicStats>();
-        if (stats == null) return;
+        var health = e.Item.GoRogueComponents.GetFirstOrDefault<HealthComponent>();
+        if (health == null) return;
 
-        stats.Died -= HostileDeath;
+        health.HPDepleted -= HostileDeath;
       }
     }
 

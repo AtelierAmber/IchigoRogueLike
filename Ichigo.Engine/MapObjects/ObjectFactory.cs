@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using SadConsole;
 using SadRogue.Integration;
 using SadRogue.Primitives;
@@ -45,8 +46,8 @@ namespace Ichigo.Engine.MapObjects
     //public static Terrain Wall(Point position)
     //    => new(position, AppearanceDefinitions["Wall"], (int)MapFactory.Layer.Terrain, false, false);
 
-    public static RogueLikeEntity Corpse(RogueLikeEntity entity)
-        => new((ColoredGlyph)entity.AppearanceSingle.Appearance, layer: (int)MapFactory.Layer.Items)
+    public static RogueLikeEntity Corpse([NotNull] RogueLikeEntity entity)
+        => new((entity.AppearanceSingle == null) ? new ColoredGlyph(Color.White, Color.Black, '?') : (ColoredGlyph)entity.AppearanceSingle.Appearance, layer: (int)MapFactory.Layer.Items)
         {
           Name = $"Remains - {entity.Name}",
           Position = entity.Position,

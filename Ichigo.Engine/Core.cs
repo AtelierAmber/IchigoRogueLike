@@ -28,7 +28,7 @@ namespace Ichigo.Engine
     public static int WindowHeight => SadConsole.GameHost.Instance.ScreenCellsY;
 
     public static void Start<TStartingScreen>(int width, int height, string title,
-      string defaultFont = "Engine/Fonts/Cheepicus12.font") where TStartingScreen : SadConsole.IScreenSurface, new()
+      string defaultFont = "../Ichigo.Engine/Fonts/Cheepicus12.font") where TStartingScreen : SadConsole.IScreenSurface, new()
     {
       if (instance != null) return;
       instance = new Core();
@@ -40,10 +40,7 @@ namespace Ichigo.Engine
     // Null override because it's initialized via Init
     public MessageLog MessageLog = null!;
 
-    // Null override because it's initialized via new-game/load game
-    public RogueLikeEntity Player = null!;
-
-    public void InitializeAndRun<TStartingScreen>(int width, int height, string title, string defaultFont = "Engine/Fonts/Cheepicus12.font")
+    public void InitializeAndRun<TStartingScreen>(int width, int height, string title, string defaultFont = "../Ichigo.Engine/Fonts/Cheepicus12.font")
       where TStartingScreen : SadConsole.IScreenSurface, new()
     {
       SadConsole.Settings.WindowTitle = title;

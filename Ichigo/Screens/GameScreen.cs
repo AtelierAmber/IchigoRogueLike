@@ -5,18 +5,19 @@ using Ichigo.Engine;
 using Ichigo.Engine.Screens;
 using Ichigo.Maps;
 using Ichigo.Screens.Menus;
-using Ichigo.Themes;
 using Ichigo.Engine.Maps;
+using SadConsole;
+using SadRogue.Primitives;
 
 namespace Ichigo.Screens
 {
     public class GameScreen : IchigoScreen
   {
-    public readonly GameMap Map;
-    public readonly MessageLogPanel MessagePanel;
-    public readonly StatusPanel StatusPanel;
+    public GameMap Map;
+    public MessageLogPanel MessagePanel;
+    public StatusPanel StatusPanel;
 
-    public readonly SurfaceComponentFollowTarget ViewLock;
+    public SurfaceComponentFollowTarget ViewLock;
 
     private const int StatusBarWidth = 25;
     private const int BottomPanelHeight = 5;
@@ -32,33 +33,6 @@ namespace Ichigo.Screens
       // Make the Map (which is also a screen object) a child of this screen, and ensure the default renderer receives input focus.
       Children.Add(Map);
       Map.DefaultRenderer.IsFocused = true;
-
-      // Center view on player as they move (by default)
-      ViewLock = new SurfaceComponentFollowTarget { Target = Core.Instance.Player };
-      Map.DefaultRenderer.SadComponents.Add(ViewLock);
-
-      // Create message log
-      MessagePanel = new MessageLogPanel(Core.WindowWidth - StatusBarWidth - 1, BottomPanelHeight)
-      {
-        Parent = this,
-        Position = new(StatusBarWidth + 1, Core.WindowHeight - BottomPanelHeight)
-      };
-
-      // Create status panel
-      StatusPanel = new(StatusBarWidth, BottomPanelHeight)
-      {
-        Parent = this,
-        Position = new(0, Core.WindowHeight - BottomPanelHeight)
-      };
-
-      // Set main map state as default
-      //CurrentState = new MainMapState(this);
-
-      // Add player death handler
-      Core.Instance.Player.AllComponents.GetFirst<BasicStats>().Died += PlayerDeath;
-
-      // Write welcome message
-      Core.Instance.MessageLog.Add(new("Hello and welcome, adventurer, to yet another dungeon!", MessageColors.WelcomeTextAppearance));
     }
 
     /// <summary>
@@ -68,7 +42,7 @@ namespace Ichigo.Screens
     {
       Core.Instance.MessageLog.Add(new("You have died!", MessageColors.PlayerDiedAppearance));
 
-      Core.Instance.Player.AllComponents.GetFirst<BasicStats>().Died -= PlayerDeath;
+      Game.Player.AllComponents.GetFirst<HealthComponent>().HPDepleted -= PlayerDeath;
 
       // Switch to game over screen
       Children.Add(new GameOver());
@@ -77,7 +51,32 @@ namespace Ichigo.Screens
 
     public override void Initialize()
     {
-      
+      // Center view on player as they move (by default)
+      ViewLock = new SurfaceComponentFollowTarget { Target = Game.Player };
+      Map?.DefaultRenderer?.SadComponents.Add(ViewLock);
+
+      // Create message log
+      MessagePanel = new MessageLogPanel(Core.WindowWidth - StatusBarWidth - 1, BottomPanelHeight)
+      {
+        Parent = this,
+        Position = new Point(StatusBarWidth + 1, Core.WindowHeight - BottomPanelHeight)
+      };
+
+      // Create status panel
+      StatusPanel = new StatusPanel(StatusBarWidth, BottomPanelHeight)
+      {
+        Parent = this,
+        Position = new Point(0, Core.WindowHeight - BottomPanelHeight)
+      };
+
+      // Set main map state as default
+      //CurrentState = new MainMapState(this);
+
+      // Add player death handler
+      Game.Player.AllComponents.GetFirst<HealthComponent>().HPDepleted += PlayerDeath;
+
+      // Write welcome message
+      Core.Instance.MessageLog.Add(new ColoredString("Hello and welcome, adventurer, to yet another dungeon!", MessageColors.WelcomeTextAppearance));
     }
 
     public override void Uninitialize()
@@ -87,7 +86,7 @@ namespace Ichigo.Screens
 
     public override IchigoMap GetMap()
     {
-      throw new NotImplementedException();
+      return Map;
     }
   }
 }

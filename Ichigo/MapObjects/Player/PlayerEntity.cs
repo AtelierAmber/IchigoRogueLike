@@ -1,4 +1,5 @@
 ﻿using Ichigo.Engine.Features.Entities;
+using Ichigo.Engine.Features.Items;
 using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine.Maps;
 using SadRogue.Primitives;
