@@ -57,14 +57,11 @@ namespace Ichigo.Engine.Features.Items
       if (Parent.CurrentMap == null)
         throw new InvalidOperationException("Entity must be part of a map to pick up items.");
 
-      //var isPlayer = Parent == Core.Instance.Player;
-
-      var inventory = Parent.AllComponents.GetFirst<Inventory>();
-      foreach (var item in Parent.CurrentMap.GetEntitiesAt<RogueLikeEntity>(Parent.Position))
+      foreach (var entity in Parent.CurrentMap.GetEntitiesAt<RogueLikeEntity>(Parent.Position))
       {
-        if (!item.AllComponents.Contains<ICarryable>()) continue;
+        if (!entity.AllComponents.Contains<ICarryable>()) continue;
 
-        if (inventory.Items.Count >= inventory.Capacity)
+        if (Items.Count >= Capacity)
         {
           //if (isPlayer)
           //{
@@ -74,8 +71,8 @@ namespace Ichigo.Engine.Features.Items
           return false;
         }
 
-        item.CurrentMap!.RemoveEntity(item);
-        //inventory.Items.Add(item);
+        Parent.CurrentMap!.RemoveEntity(entity);
+        Items.Add(new IchigoItemStack(entity.AllComponents.GetFirst<ICarryable>().GetAsItem(), 1));
 
         //if (isPlayer)
         //{

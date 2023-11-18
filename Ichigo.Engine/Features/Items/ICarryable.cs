@@ -3,6 +3,8 @@
 /// </summary>
 namespace Ichigo.Engine.Features.Items
 {
-    public interface ICarryable
-    { }
+  public interface ICarryable
+  {
+    public IchigoItem GetAsItem();
+  }
 }

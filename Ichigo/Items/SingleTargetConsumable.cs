@@ -11,7 +11,7 @@ using Ichigo.Screens.States;
 
 namespace Ichigo.Items
 {
-  internal abstract class SingleTargetConsumable : RogueLikeComponentBase<RogueLikeEntity>, IConsumable
+  internal abstract class SingleTargetConsumable : RogueLikeComponentBase<RogueLikeEntity>, IActivatable
   {
     // Private for now because the player is the only one who can use items so there is no need to set it outside the class, but this could change.
     private RogueLikeEntity _target;

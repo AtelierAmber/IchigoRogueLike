@@ -12,7 +12,7 @@ using Ichigo.Screens;
 
 namespace Ichigo.Items
 {
-  internal abstract class AreaTargetConsumable : RogueLikeComponentBase<RogueLikeEntity>, IConsumable
+  internal abstract class AreaTargetConsumable : RogueLikeComponentBase<RogueLikeEntity>, IActivatable
   {
     // Private for now because the player is the only one who can use items so there is no need to set it outside the class, but this could change.
     private Point? _target;

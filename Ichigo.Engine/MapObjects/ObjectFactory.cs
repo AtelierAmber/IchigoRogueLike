@@ -35,7 +35,7 @@ namespace Ichigo.Engine.MapObjects
             "Wall",
             new TerrainAppearanceDefinition(
                 new ColoredGlyph(Color.Gray, Color.White, 0),
-                new ColoredGlyph(Color.Gray, Color.Black, 0)
+                new ColoredGlyph(Color.Gray, Color.White, 0)
             )
         },
     };

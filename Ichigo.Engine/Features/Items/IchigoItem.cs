@@ -8,7 +8,10 @@ namespace Ichigo.Engine.Features.Items
   {
     public int ID { get; private set; }
 
-    public virtual string Name { get; private set; } = "engine.item.name.noname";
+    public virtual string Name { get; protected set; } = "engine.item.name.noname";
+
+    // Item Params
+    public virtual int MaxStackSize { get; protected set; } = 10;
 
     public virtual string LocalizedName
     {

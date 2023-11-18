@@ -12,7 +12,7 @@ using Ichigo.Themes;
 
 namespace Ichigo.Items
 {
-    internal class HealingConsumable : RogueLikeComponentBase<RogueLikeEntity>, IConsumable
+    internal class HealingConsumable : RogueLikeComponentBase<RogueLikeEntity>, IActivatable
     {
         public int Amount { get; }
 
