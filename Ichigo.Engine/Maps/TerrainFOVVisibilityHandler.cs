@@ -11,7 +11,7 @@ namespace Ichigo.Engine.Maps
   {
     protected override void ApplyMemoryAppearance(MemoryAwareRogueLikeCell terrain)
     {
-      terrain.LastSeenAppearance.CopyAppearanceFrom(((Terrain)terrain).DarkAppearance);
+      //terrain.LastSeenAppearance.CopyAppearanceFrom(((Terrain)terrain).DarkAppearance);
     }
   }
 }

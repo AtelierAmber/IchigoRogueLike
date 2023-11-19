@@ -1,6 +1,7 @@
 ﻿using System;
 using GoRogue.Components;
 using SadConsole;
+using SadRogue.Integration;
 using SadRogue.Integration.FieldOfView.Memory;
 using SadRogue.Primitives;
 
@@ -11,7 +12,7 @@ using SadRogue.Primitives;
 
 namespace Ichigo.Engine.MapObjects
 {
-  public class Terrain : MemoryAwareRogueLikeCell
+  public class Terrain : RogueLikeCell
   {
     public ColoredGlyph DarkAppearance { get; }
 

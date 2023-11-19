@@ -1,6 +1,7 @@
 ﻿using GoRogue.MapGeneration;
 using GoRogue.MapGeneration.ContextComponents;
 using GoRogue.Random;
+using Ichigo.Engine.Features.Entities;
 using SadRogue.Integration.Maps;
 using SadRogue.Primitives;
 using SadRogue.Primitives.GridViews;
@@ -42,12 +43,13 @@ namespace Ichigo.Engine.Maps
       Items,
       Characters
     }
-    public static IchigoMap Dungeon(DungeonGenConfig config)
+    public static IchigoMap Dungeon(IchigoEntity Player, DungeonGenConfig config)
     {
       // Generate a dungeon maze map
       var generator = new Generator(config.Width, config.Height)
           .ConfigAndGenerateSafe(gen =>
           {
+            //gen.AddSteps(DefaultAlgorithms.RectangleMapSteps());
             gen.AddSteps(DefaultAlgorithms.DungeonMazeMapSteps(minRooms: config.MinRooms, maxRooms: config.MaxRooms,
                   roomMinSize: config.RoomMinSize, roomMaxSize: config.RoomMaxSize, saveDeadEndChance: 0));
           });
@@ -58,11 +60,13 @@ namespace Ichigo.Engine.Maps
 
       // Create actual integration library map with a proper component for the character "memory" system.
       var map = new IchigoMap(generator.Context.Width, generator.Context.Height, null, 4, Distance.Chebyshev);
-      map.AllComponents.Add(new TerrainFOVVisibilityHandler());
+      //map.AllComponents.Add(new TerrainFOVVisibilityHandler());
+
+      Player.Position = rooms.Items[0].Center;
 
       // Translate GoRogue's terrain data into actual integration library objects.
       map.ApplyTerrainOverlay(generatedMap, (pos, val) => val ? MapObjects.ObjectFactory.Floor(pos) : MapObjects.ObjectFactory.Wall(pos));
-
+      
       // Spawn player
       SpawnPlayer(map, rooms);
 

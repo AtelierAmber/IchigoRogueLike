@@ -66,16 +66,8 @@ namespace Ichigo.Screens
       // Create player entity
       Game.Player = MapObjectFactory.Player();
 
-      // Generate a dungeon map, and spawn the player/enemies
-      var map = MapFactory.Dungeon(new(100, 60, 20, 30, 8, 12, 2, 2));
-
-      map.AddEntity(Game.Player);
-
-      // Calculate initial FOV for player
-      Game.Player.AllComponents.GetFirst<PlayerFOVController>().CalculateFOV();
-
       // Create a MapScreen and set it as the active screen so that it processes input and renders itself.
-      Core.Instance.ChangeRootScreen(new GameScreen(map));
+      Core.Instance.ChangeRootScreen(new GameScreen());
     }
 
     private void LoadGameOnClick(object sender, EventArgs e)

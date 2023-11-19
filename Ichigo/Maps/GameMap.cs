@@ -5,7 +5,6 @@ using Ichigo.Engine;
 using Ichigo.Engine.MapObjects.Components;
 using Ichigo.Engine.MapObjects.Components.AI;
 using Ichigo.Engine.Maps;
-using Ichigo.Themes;
 using SadConsole;
 using SadRogue.Integration;
 using SadRogue.Integration.Maps;
@@ -22,12 +21,14 @@ namespace Ichigo.Maps
   public class GameMap : IchigoMap
   {
 
-    public GameMap(int width, int height, DefaultRendererParams defaultRendererParams)
+    public GameMap(int width, int height, DefaultRendererParams? defaultRendererParams)
         : base(width, height, defaultRendererParams, Enum.GetValues<MapFactory.Layer>().Length - 1, Distance.Chebyshev)
     {
       // Ensures HostileDeath is triggered when anything except the player dies so that corpses appear and messages trigger.
       Entities.ItemAdded += EntitiesOnItemAdded;
       Entities.ItemRemoved += EntitiesOnItemRemoved;
+      AllComponents.Add(new MapEntityForwarderComponent());
+      IsFocused = true;
     }
 
     /// <summary>
