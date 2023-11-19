@@ -31,16 +31,16 @@ namespace Ichigo.Engine
       string[] files = Directory.GetFiles(LOG_DIRECTORY, "Log*");
       if (files.Length >= SAVED_FILE_COUNT)
       {
-        for (int i = files.Length; i >= SAVED_FILE_COUNT && i >= 0; --i)
+        for (int i = files.Length - 1; i >= SAVED_FILE_COUNT && i >= 0; --i)
         {
           File.Delete(files[i]);
         }
-
-        for (int i = 0; i < SAVED_FILE_COUNT - 1; ++i)
-        {
-          File.Move(files[i], "Log_" + (i+1) + ".log");
-        }
       }
+      for (int i = Math.Min(SAVED_FILE_COUNT, files.Length) - 1; i >= 0; --i)
+      {
+        File.Move(files[i], LOG_DIRECTORY + "Log_" + (i + 1) + ".log");
+      }
+
       File.Create(LOG_FILE_PATH).Dispose();
       LOG_FILE = new StreamWriter(LOG_FILE_PATH, false, Encoding.Default);
       LOG_FILE.WriteLine("Logging started at " + DateTime.Now);
@@ -49,15 +49,15 @@ namespace Ichigo.Engine
       files = Directory.GetFiles(LOG_DIRECTORY, "Error*");
       if (files.Length >= SAVED_FILE_COUNT)
       {
-        for (int i = files.Length; i >= SAVED_FILE_COUNT && i >= 0; --i)
+        for (int i = files.Length - 1; i >= SAVED_FILE_COUNT && i >= 0; --i)
         {
           File.Delete(files[i]);
         }
+      }
 
-        for (int i = 0; i < SAVED_FILE_COUNT; ++i)
-        {
-          File.Move(files[i], "Error_" + (i+1) + ".log");
-        }
+      for (int i = Math.Min(SAVED_FILE_COUNT, files.Length) - 1; i >= 0; --i)
+      {
+        File.Move(files[i], LOG_DIRECTORY + "Error_" + (i + 1) + ".log");
       }
       File.Create(ERROR_FILE_PATH).Dispose();
       ERROR_FILE = new StreamWriter(ERROR_FILE_PATH, false, Encoding.Default);
@@ -70,7 +70,7 @@ namespace Ichigo.Engine
     // Appears in log
     public static void Info(string message)
     {
-      if(!INITIALIZED) InitFiles();
+      if (!INITIALIZED) InitFiles();
 
       LOG_BUFFER += "[LOG " + DateTime.Now + "] " + message;
 

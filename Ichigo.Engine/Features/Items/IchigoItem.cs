@@ -15,14 +15,14 @@ namespace Ichigo.Engine.Features.Items
 
     public virtual string LocalizedName
     {
-      get => Localizer.Localized(Name);
+      get => Name.Localize();
     }
 
     public virtual string Description { get; private set; } = "engine.item.description.nodescription";
 
     public virtual string LocalizedDescription
     {
-      get => Localizer.Localized(Description);
+      get => Description.Localize();
     }
 
     public Color ItemColor { get; private set; }

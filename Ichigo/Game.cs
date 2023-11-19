@@ -13,7 +13,7 @@ namespace Ichigo {
 
     private static void Main()
     {
-      Core.Start<MainMenu>(StartingWidth, StartingHeight, "Title", "./Fonts/Cheepicus12.font");
+      Core.Start<MainMenu>(StartingWidth, StartingHeight, "Title", "./res/Fonts/Cheepicus12.font");
     }
   }
 }

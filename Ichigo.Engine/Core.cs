@@ -79,7 +79,7 @@ namespace Ichigo.Engine
         }
         catch (Exception _)
         {
-          Environment.Exit(1);
+          Environment.Exit(_.HResult);
         }
       }
     }

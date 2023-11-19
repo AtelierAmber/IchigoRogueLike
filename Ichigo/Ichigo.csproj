@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="Locale\" />
+    <Folder Include="res\Locale\" />
   </ItemGroup>
 
 
@@ -39,10 +39,10 @@
 
 
   <ItemGroup>
-    <None Update="Fonts\Cheepicus12.font">
+    <None Update="res\Fonts\Cheepicus12.font">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="Fonts\Cheepicus_12x12.png">
+    <None Update="res\Fonts\Cheepicus_12x12.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
