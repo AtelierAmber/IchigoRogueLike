@@ -28,11 +28,11 @@ namespace Ichigo.Engine
     public static int WindowHeight => SadConsole.GameHost.Instance.ScreenCellsY;
 
     public static void Start<TStartingScreen>(int width, int height, string title,
-      string defaultFont = "../Ichigo.Engine/Fonts/Cheepicus12.font") where TStartingScreen : SadConsole.IScreenSurface, new()
+      string defaultFont = null) where TStartingScreen : SadConsole.IScreenSurface, new()
     {
       if (instance != null) return;
       instance = new Core();
-      instance.InitializeAndRun<TStartingScreen>(width, height, title);
+      instance.InitializeAndRun<TStartingScreen>(width, height, title, defaultFont);
     }
 
     public ActionController ActionController { get; private set; }
@@ -40,9 +40,14 @@ namespace Ichigo.Engine
     // Null override because it's initialized via Init
     public MessageLog MessageLog = null!;
 
-    public void InitializeAndRun<TStartingScreen>(int width, int height, string title, string defaultFont = "../Ichigo.Engine/Fonts/Cheepicus12.font")
+    private void InitializeAndRun<TStartingScreen>(int width, int height, string title, string defaultFont)
       where TStartingScreen : SadConsole.IScreenSurface, new()
     {
+      bool usingFont = File.Exists(defaultFont);
+      if (defaultFont != null)
+      {
+        if (!usingFont) { Logger.Error("Font file provided is missing, falling back on default font."); }
+      }
       SadConsole.Settings.WindowTitle = title;
       WINDOW_WIDTH = width; WINDOW_HEIGHT = height;
       try
@@ -53,7 +58,7 @@ namespace Ichigo.Engine
             .SetScreenSize(WINDOW_WIDTH, WINDOW_HEIGHT)
             .SetStartingScreen<TStartingScreen>()
             .IsStartingScreenFocused(false)
-            .ConfigureFonts(true)
+            .ConfigureFonts(usingFont)
             .ConfigureFonts(defaultFont)
           ;
 
@@ -68,7 +73,14 @@ namespace Ichigo.Engine
       }
       finally
       {
-        SadConsole.Game.Instance.Dispose();
+        try
+        {
+          SadConsole.Game.Instance.Dispose();
+        }
+        catch (Exception _)
+        {
+          Environment.Exit(1);
+        }
       }
     }
 

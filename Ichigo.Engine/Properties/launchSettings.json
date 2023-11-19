@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ichigo.Engine": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
