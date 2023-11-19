@@ -57,7 +57,7 @@ namespace Ichigo.Engine.Maps
       var rooms = generator.Context.GetFirst<ItemList<Rectangle>>("Rooms");
 
       // Create actual integration library map with a proper component for the character "memory" system.
-      var map = new IchigoMap(generator.Context.Width, generator.Context.Height, null, 1, Distance.Chebyshev);
+      var map = new IchigoMap(generator.Context.Width, generator.Context.Height, null, 4, Distance.Chebyshev);
       map.AllComponents.Add(new TerrainFOVVisibilityHandler());
 
       // Translate GoRogue's terrain data into actual integration library objects.

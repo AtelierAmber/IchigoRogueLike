@@ -9,7 +9,7 @@ namespace Ichigo.MapObjects.Player
   public class PlayerEntity : IchigoEntity, IControlable
   {
     public PlayerEntity()
-      : base(Color.White, '@', false, false, (int)MapFactory.Layer.Characters)
+      : base(Color.White, '@', true, true, (int)MapFactory.Layer.Characters)
     {
       AddComponent(new Inventory(10));
     }

@@ -32,6 +32,9 @@ namespace Ichigo.Screens
       // Make the Map (which is also a screen object) a child of this screen, and ensure the default renderer receives input focus.
       Children.Add(Map);
       Map.DefaultRenderer.IsFocused = true;
+
+      ViewLock = new SurfaceComponentFollowTarget { Target = Game.Player };
+      Map.DefaultRenderer.SadComponents.Add(ViewLock);
     }
 
     /// <summary>

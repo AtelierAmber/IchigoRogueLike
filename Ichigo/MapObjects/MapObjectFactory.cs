@@ -17,7 +17,7 @@ namespace Ichigo.MapObjects
 
       player.AddComponent(new CharacterCombatStats(100));
       player.AddComponent(new HealthComponent(100));
-      player.AddComponent(new PlayerFOVController());
+      player.AddComponent(new PlayerFOVController() {FOVRadius = 8});
 
       return player;
     }
