@@ -30,7 +30,7 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Logs\" />
-    <Folder Include="res\Locale\" />
+    <Folder Include="res\Terrain\" />
   </ItemGroup>
 
 

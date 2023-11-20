@@ -2,5 +2,8 @@
 # English Locale
 ####################
 
-engine.item.name.noname=UNNAMED ITEM
-engine.item.description.nodescription=NO DESCRIPTION
+# Settings
+mainmenu.newgame = New Game
+mainmenu.loadgame = Load Game
+mainmenu.settings = Settings
+mainmenu.exit = Exit

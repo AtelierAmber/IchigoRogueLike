@@ -1,4 +1,5 @@
 ﻿using Ichigo.Engine.Resources;
+using Ichigo.Engine.Resources.Loaders;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Ichigo.Engine
 {
-  public static class StringLocalization
+    public static class StringLocalization
   {
     public static string Localize(this string localizationKey)
     {
-      return Localizer.Instance.TextLocalization[localizationKey];
+      return Localizer.Instance.TextLocalization.GetValueOrDefault(localizationKey, localizationKey);
     }
   }
 

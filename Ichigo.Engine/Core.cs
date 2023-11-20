@@ -1,4 +1,7 @@
 ﻿
+using Ichigo.Engine.MapObjects.Components;
+using Ichigo.Engine.Resources;
+using Ichigo.Engine.Resources.Loaders;
 using Ichigo.Engine.Screens;
 using SadConsole.Configuration;
 using SadRogue.Integration;
@@ -52,6 +55,8 @@ namespace Ichigo.Engine
       WINDOW_WIDTH = width; WINDOW_HEIGHT = height;
       try
       {
+        RegisterResourceLoaders();
+
         ActionController = new ActionController();
 
         Builder startup = new Builder()
@@ -87,6 +92,14 @@ namespace Ichigo.Engine
     private void Init(object sender, SadConsole.GameHost host)
     {
       MessageLog = new MessageLog(1000);
+
+      EntityComponentLibrary.RegisterType<HealthComponent>("health");
+    }
+
+    private void RegisterResourceLoaders()
+    {
+      ResourceController.RegisterLoader<LocaleLoader>();
+      ResourceController.RegisterLoader<TerrainLoader>();
     }
 
     public bool AddScreenToRoot<T>(T newScreen) where T : SadConsole.IScreenSurface

@@ -42,14 +42,14 @@ namespace Ichigo.Engine.Resources
 
     public static void RegisterLoader<T>() where T : ResourceLoader, new()
     {
-      if (Loaders.ContainsKey(typeof(T)))
+      T loader = new T();
+      if (Loaders.ContainsKey(loader.Type))
       {
         Logger.Error("Tried to register a loader with type <" + typeof(T) + "> but that type has already been registered!");
         return;
       }
 
-      T loader = new T();
-      Loaders.Add(typeof(T), loader);
+      Loaders.Add(loader.Type, loader);
     }
   }
 
@@ -75,7 +75,7 @@ namespace Ichigo.Engine.Resources
 
     internal Resource Load(string resourceName)
     {
-      string path = ResourceLocation + resourceName + "." + Extension;
+      string path = ResourceLocation + resourceName + Extension;
       object data = LoadData(path);
       Resource resource = new(Type, resourceName, path, data);
 

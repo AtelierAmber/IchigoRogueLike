@@ -27,7 +27,7 @@ namespace Ichigo.Screens
       var newGame = new MainMenuButton(Width)
       {
         Name = "NewGameBtn",
-        Text = "New Game",
+        Text = "mainmenu.newgame".Localize(),
         Position = (0, 0),
       };
       newGame.Click += NewGameOnClick;
@@ -36,7 +36,7 @@ namespace Ichigo.Screens
       var loadGame = new MainMenuButton(Width)
       {
         Name = "LoadGameBtn",
-        Text = "Load Game",
+        Text = "mainmenu.loadgame".Localize(),
         Position = (0, 2)
       };
       loadGame.Click += LoadGameOnClick;
@@ -45,7 +45,7 @@ namespace Ichigo.Screens
       var settings = new MainMenuButton(Width)
       {
         Name = "SettingsBtn",
-        Text = "Settings",
+        Text = "mainmenu.settings".Localize(),
         Position = (0, 4)
       };
       settings.Click += SettingsOnClick;
@@ -54,7 +54,7 @@ namespace Ichigo.Screens
       var exit = new MainMenuButton(Width)
       {
         Name = "ExitBtn",
-        Text = "Exit",
+        Text = "mainmenu.exit".Localize(),
         Position = (0, 6)
       };
       exit.Click += ExitOnClick;
